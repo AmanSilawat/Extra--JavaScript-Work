@@ -270,25 +270,165 @@ PARAMETER
 -The indexOf() method returns
 	the index within the String of the first occurrence of specified value.
 - starting from index
-- return -1
+- if find string is match return indexValue otherwise return -1
+- Case Sensitive
 
 
 */
 
 var str = "Hello this a string and i'm find something.";
 var findStr = "find";
-str.indexOf(findStr)
+str.indexOf(findStr);
+str.indexOf('undefined');
+
+//search empty string - return same index
+'hello world'.indexOf('') // returns 0
+'hello world'.indexOf('', 0) // returns 0
+'hello world'.indexOf('', 3) // returns 3
+'hello world'.indexOf('', 8) // returns 8
+
+// string length is greater the index than return string length
+'hello world'.indexOf('', 11) // returns 11
+'hello world'.indexOf('', 13) // returns 11
+'hello world'.indexOf('', 22) // returns 11
+
+// in string first character is 0
+'Blue Whale'.indexOf('Blue')      // returns  0
+'Blue Whale'.indexOf('Blute')     // returns -1
+'Blue Whale'.indexOf('Whale', 0)  // returns  5
+'Blue Whale'.indexOf('Whale', 5)  // returns  5
+'Blue Whale'.indexOf('Whale', 7)  // returns -1
+'Blue Whale'.indexOf('')          // returns  0
+'Blue Whale'.indexOf('', 9)       // returns  9
+'Blue Whale'.indexOf('', 10)      // returns 10
+'Blue Whale'.indexOf('', 11)      // returns 10
+
+// case sensitive
+'Blue Whale'.indexOf('blue')  // returns -1
+
+// Checking occurrences
+'Blue Whale'.indexOf('Blue') !== -1  // true
+'Blue Whale'.indexOf('Bloe') !== -1  // false
+~('Blue Whale'.indexOf('Bloe')) // 0, which is falsy
+
 
 /*
-SYNTEX: str.includes(searchString[, lenght])
+SYNTEX: str.indexOf(searchValue[, lenght])
 
 PARAMETER
 	:searchString
 		=> search with a str
 
-	: length (optional)
-		=> the position within the string (default is 0)
+	: fromIndex (optional)
+		=> default 0
+		=> for fromIndex value lower than 0
+			than search 0 to str.lenght
+		=> search a str to contains string, fromIndex is greter str.lenght then return -1
+		=> search a str to contains empty string, fromIndex is greter str.lenght then return str.length
 */
+
+
+
+
+
+//16. italics (Deprecated 👎)  ===========
+
+
+
+
+
+/*
+17. lastIndexOf  ===========
+
+The lastIndexOf() method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from fromIndex. Returns -1 if the value is not found.
+
+*/
+
+var str = "Hello this a string and i'm find something.";
+var findStr = "find";
+str.lastIndexOf(findStr) ;
+str.lastIndexOf('undefined') ;
+
+//search empty string - return same index
+'hello world'.lastIndexOf('')  // 11 , indexOf: 0
+'hello world'.lastIndexOf('', 0)  // 0 , indexOf: 0
+'hello world'.lastIndexOf('', 3)  // 3 , indexOf: 3
+'hello world'.lastIndexOf('', 8)  // 8 , indexOf: 8
+
+// string length is greater the index than return string length
+'hello world'.lastIndexOf('', 11)  // 11 , indexOf: 11
+'hello world'.lastIndexOf('', 13)  // 11 , indexOf: 11
+'hello world'.lastIndexOf('', 22)  // 11 , indexOf: 11
+
+// in string first character is 0
+'Blue Whale'.lastIndexOf('Blue')      // 0  , indexOf:  0
+'Blue Whale'.lastIndexOf('Blute')     // -1 , indexOf: -1
+'Blue Whale'.lastIndexOf('Whale', 0)  // -1 , indexOf:  5
+'Blue Whale'.lastIndexOf('Whale', 5)  // 5  , indexOf:  5
+'Blue Whale'.lastIndexOf('Whale', 7)  // 5  , indexOf: -1
+'Blue Whale'.lastIndexOf('')          // 10 , indexOf:  0
+'Blue Whale'.lastIndexOf('', 9)       // 9  , indexOf:  9
+'Blue Whale'.lastIndexOf('', 10)      // 10 , indexOf: 10
+'Blue Whale'.lastIndexOf('', 11)      // 10 , indexOf: 10
+
+// case sensitive
+'Blue Whale'.lastIndexOf('blue')  // -1, indexOf: -1
+
+// Checking occurrences
+'Blue Whale'.lastIndexOf('Blue') !== -1 ;  // true, indexOf: true
+'Blue Whale'.lastIndexOf('Bloe') !== -1 ;  // false, indexOf: false
+~('Blue Whale'.lastIndexOf('Bloe')) ; // 0,  indexOf: 0, which is falsy
+
+
+/*
+SYNTEX: str.lastIndexOf(searchValue[, lenght])
+
+PARAMETER
+	:searchString
+		=> search with a str
+
+	: fromIndex (optional)
+		=> default 0
+		=> for fromIndex value lower than 0
+			than search 0 to str.lenght
+		=> search a str to contains string, fromIndex is greter str.lenght then return -1
+		=> search a str to contains empty string, fromIndex is greter str.lenght then return str.length
+*/
+
+
+
+
+//18. link (Deprecated 👎)  ===========
+
+
+
+
+
+//19. localeCompare  ===========
+
+const a = 'réservé'; // with accents, lowercase
+const b = 'RESERVE'; // no accents, uppercase
+
+a.localeCompare(b); //1
+a.localeCompare(b, 'en', { sensitivity: 'base' }); //0
+
+a.localeCompare(b)
+
+
+
+let items = ['réservé', 'Premier', 'Cliché', 'communiqué', 'café', 'Adieu'];
+items.sort( (a, b) => a.localeCompare(b, 'fr', {ignorePunctuation: true})); 
+// ['Adieu', 'café', 'Cliché', 'communiqué', 'Premier', 'réservé']
+
+
+
+// SYNTEX: referenceStr.localeCompare(compareString[, locales[, options]])
+
+// compareString: 
+// 	=> e string against which the referenceStr is compared.
+
+// locales and options: 
+// 	=> ?
 
 
 
@@ -312,4 +452,7 @@ non-Basic-Multilingual-Plane characters
 link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt
 question : different browser different output
 
+4. 
+localeCompare 
+use or not
 */
