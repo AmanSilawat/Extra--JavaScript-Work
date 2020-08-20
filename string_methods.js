@@ -434,6 +434,120 @@ items.sort( (a, b) => a.localeCompare(b, 'fr', {ignorePunctuation: true}));
 
 
 
+//20. match  ===========
+
+// The match() method retrieves the result of matching a string against a regular expression.
+
+'This is a String'.match(/[A-Z]/g); //["T", "S"]
+
+
+// SYNTEX: str.match(regexp)
+
+// PARAMETER
+// -regexp:
+// 	=> a regular expression object
+// 	=> parameter is empty than return empty array
+
+
+
+
+
+
+//20. normalize  ===========
+
+// The normalize() method returns the Unicode Normalization Form of the string.
+
+const name1 = '\u0041\u006d\u00e9\u006c\u0069\u0065';
+const name2 = '\u0041\u006d\u0065\u0301\u006c\u0069\u0065';
+
+
+console.log(`${name1}, ${name2}`);
+// expected output: "Amélie, Amélie"
+console.log(name1 === name2);
+// expected output: false
+console.log(name1.length === name2.length);
+// expected output: false
+
+
+
+const name1NFC = name1.normalize('NFC');
+const name2NFC = name2.normalize('NFC');
+
+console.log(`${name1NFC}, ${name2NFC}`);
+// expected output: "Amélie, Amélie"
+console.log(name1NFC === name2NFC);
+// expected output: true
+console.log(name1NFC.length === name2NFC.length);
+// expected output: true
+
+
+/*
+Syntax:
+str.normalize([form])
+
+Parameters: ?
+*/
+
+
+
+
+
+//21. padEnd  ===========
+
+
+'ms'.padEnd(10, '.') // "ms........"
+'20050'.padEnd(10) // "20050     "
+
+'abc'.padEnd(10);          // "abc       "
+'abc'.padEnd(10, "foo");   // "abcfoofoof"
+'abc'.padEnd(6, "123456"); // "abc123"
+'abc'.padEnd(1);           // "abc"
+
+
+// accept two parameter 
+// first is : target length - string length is not target length to scretch to target length with added padString and repeat the padString.
+// second: optional - padString repeat string to target length.
+
+
+
+
+
+//21. padStart  ===========
+
+
+'ms'.padStart(10, '.') // "........ms"
+'20050'.padStart(10) // "     20050"
+
+'abc'.padStart(10);          // "       abc"
+'abc'.padStart(10, "foo");   // "foofoofabc"
+'abc'.padStart(6, "123456"); // "123abc"
+'abc'.padStart(1);           // "abc"
+
+
+
+
+
+//22. repeat  ===========
+
+// return a new string specified number of copies
+
+'Abc'.repeat(5) //"AbcAbcAbcAbcAbc"
+
+'abc'.repeat(-1)    // RangeError
+'abc'.repeat(0)     // ''
+'abc'.repeat(1)     // 'abc'
+'abc'.repeat(2)     // 'abcabc'
+'abc'.repeat(3.5)   // 'abcabcabc' (count will be converted to integer)
+'abc'.repeat(1/0)   // RangeError
+
+// PARAMETER: accept one parameter - zero to Infinity -num. of time repeat
+
+
+
+
+// 26 more
+
+
 
 
 
@@ -455,4 +569,24 @@ question : different browser different output
 4. 
 localeCompare 
 use or not
+
+5.
+what is this
+({ toString: () => 'abc', repeat: String.prototype.repeat }).repeat(2) 
+
+
+
+
+
+
+
+pandding methods
+
+1. localeCompare
+2. match
+3. matchAll
+3. normalize
+
+
+
 */
