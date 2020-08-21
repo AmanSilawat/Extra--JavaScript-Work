@@ -198,8 +198,9 @@ PARAMETER : thing
 
 */
 
-var str = 'Hello this is cat';
-str.endsWith('cat'); //true
+'Hello this is cat'.endsWith('cat'); //true
+'Hello this is cat'.endsWith('is ca'); //false
+'hello cat faa sa'.endsWith('cat', 9); //true
 
 /*
 SYNTEX: str.endsWith(searchString[, lenght])
@@ -310,6 +311,7 @@ str.indexOf('undefined');
 'Blue Whale'.indexOf('Blue') !== -1  // true
 'Blue Whale'.indexOf('Bloe') !== -1  // false
 ~('Blue Whale'.indexOf('Bloe')) // 0, which is falsy
+//(~) bitwise operator
 
 
 /*
@@ -424,6 +426,7 @@ items.sort( (a, b) => a.localeCompare(b, 'fr', {ignorePunctuation: true}));
 
 // SYNTEX: referenceStr.localeCompare(compareString[, locales[, options]])
 
+// Parameters:
 // compareString: 
 // 	=> e string against which the referenceStr is compared.
 
@@ -461,24 +464,18 @@ const name1 = '\u0041\u006d\u00e9\u006c\u0069\u0065';
 const name2 = '\u0041\u006d\u0065\u0301\u006c\u0069\u0065';
 
 
-console.log(`${name1}, ${name2}`);
-// expected output: "Amélie, Amélie"
-console.log(name1 === name2);
-// expected output: false
-console.log(name1.length === name2.length);
-// expected output: false
+`${name1}, ${name2}`;// expected output: "Amélie, Amélie"
+name1 === name2;// expected output: false
+name1.length === name2.length;// expected output: false
 
 
 
 const name1NFC = name1.normalize('NFC');
 const name2NFC = name2.normalize('NFC');
 
-console.log(`${name1NFC}, ${name2NFC}`);
-// expected output: "Amélie, Amélie"
-console.log(name1NFC === name2NFC);
-// expected output: true
-console.log(name1NFC.length === name2NFC.length);
-// expected output: true
+`${name1NFC}, ${name2NFC}`; // expected output: "Amélie, Amélie"
+name1NFC === name2NFC; // expected output: true
+name1NFC.length === name2NFC.length; // expected output: true
 
 
 /*
@@ -533,19 +530,210 @@ Parameters: ?
 
 'Abc'.repeat(5) //"AbcAbcAbcAbcAbc"
 
-'abc'.repeat(-1)    // RangeError
+//'abc'.repeat(-1)    // RangeError
 'abc'.repeat(0)     // ''
 'abc'.repeat(1)     // 'abc'
 'abc'.repeat(2)     // 'abcabc'
 'abc'.repeat(3.5)   // 'abcabcabc' (count will be converted to integer)
-'abc'.repeat(1/0)   // RangeError
+//'abc'.repeat(1/0)   // RangeError
 
+// SYNTEX: str.repeat(count)
 // PARAMETER: accept one parameter - zero to Infinity -num. of time repeat
 
 
 
 
-// 26 more
+
+
+/*23. replace  ===========
+
+-The replace() method returns a new string with some or all matches of a pattern replaced by a replacement.
+-The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.
+-If pattern is a string, only the first occurrence will be replaced.
+
+*/
+
+"Ab ab Ab ab".replace(/a/g, 'S');  //"Ab Sb Ab Sb"
+"Ab ab Ab ab".replace(/a/gi, 'S'); //"Sb Sb Sb Sb"
+
+
+/*
+SYNTEX: str.replace(regexp|substr, newSubstr|function)
+
+PARAMETER:
+-regexp (pattern)
+	=> A RegExp object or literal.
+	=> The match or matches are replaced with newSubstr
+		or
+		the value returned by the specified function.
+
+-substr:
+	=> A String that is to be replaced by newSubstr.
+	=> It is treated as a literal string and is not interpreted as a regular expression.
+	=>Only the first occurrence will be replaced.
+*/
+
+
+
+
+
+
+/*
+24. search  ===========
+
+-The search() method executes a search for a match between a regular expression and this String object.
+
+*/
+
+"Ab ab Ab ab".search(/a/g); // 3 (index value)
+"Ab ab Ab ab".search(/a/);  // 3 (index value)
+
+"hey JudE".search(/[A-Z]/g) //4 (index value)
+"hey JudE".search(/[A-Z]/) //4 (index value)
+
+
+/*
+Syntax:	str.search(regexp)
+
+Parameters:
+	-regexp
+		=>A regular expression object.
+		=>If a non-RegExp object regexp is passed, it is implicitly converted to a RegExp with new RegExp(regexp).
+
+Return value:
+	=> The index of the first match between the regular expression and the given string.
+	=> -1 if no match was found.
+
+
+
+
+
+/*
+25. slice  ===========
+
+- The slice() method extracts a section of a string and returns it as a new string, 
+- without modifying the original string.
+
+*/
+
+"Hello this is a string".slice(10); // " is a string"
+"Hello this is a string".slice(50); // "" (out of range - "")
+"Hello this is a string".slice(6, 13); // "this is"
+
+"Hello this is a string".slice(-6); // "string" (negative value- start backwards)
+"Hello this is a string".slice(2, -1) // "llo this is a strin"
+"Hello this is a string".slice(-6, -13); // ""
+"Hello this is a string".slice(-13, -6); //"s is a "
+		 "s is a " //output
+//		 ▲       ▲
+//		 |       |
+//		-13     -6
+
+
+/*
+
+Syntax: str.slice(beginIndex[, endIndex])
+
+PARAMETER:
+	-beginIndex
+		=> 0 is start to begin
+		=> If negative, str.length + beginIndex.
+			(For example, str.length - 3.)
+
+		=> If beginIndex is greater than or equal to str.length, slice() returns an empty string.
+
+	-endIndex Optional
+		=> what is end position.
+
+
+*/
+
+
+
+
+
+//26. small (Deprecated 👎)  ===========
+
+
+
+/*
+
+27. split  ===========
+
+- The split() method string divides with specified string and create a array.
+- divides a String into an ordered list of substrings
+	,puts these substrings into an array
+	,and returns the array.
+-The division is done by searching for a pattern; where the pattern is provided as the first parameter in the method's call.  
+
+*/
+
+'hello'.split(); //["hello"]
+'hello'.split(''); //["h", "e", "l", "l", "o"]
+'hello this is string'.split(' '); // ["hello", "this", "is", "string"]
+
+''.split(); //[""]
+"he is my".split(/ /); // ["he", "is", "my"]
+'aa bb cc dd ee'.split(' ', 3); // ["aa", "bb", "cc"]
+'aa bb cc'.split(' ', -2); // ["aa", "bb", "cc"]
+//					  -2 - extracts all element
+
+
+//Reversing a String using split()
+//❗This is not a robust way to reverse a string:
+//🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴
+											 
+'asdfghjkl'.split('').reverse().join('')	 //🔴
+
+'résumé'.split(/(?:)/u).reverse().join('') 	 //🔴
+											  
+//🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴
+
+/*
+
+SYNTEX: str.split([separator[, limit]])
+
+Parameters:
+	-separator Optional
+		=> The pattern describing where each split should occur.  The separator can be a simple string or it can be a regular expression. 
+
+		=>accept sting
+*/
+
+
+
+
+
+/*
+
+28. endsWith  ===========
+
+The startsWith() method determines whether a string begins with the characters of a specified string, returning true or false as appropriate.
+
+*/
+
+'Hello this is cat'.startsWith('Hello'); //true
+'Hello this is cat'.startsWith('ello'); // false
+'hello cat faa sa'.startsWith('Hello', 9); //true
+
+/*
+SYNTEX: str.startsWith(searchString[, lenght])
+
+PARAMETER
+	:searchString
+		=> search string of the start
+
+	: length
+		=> str.default to str.length 
+*/
+
+
+
+
+
+//29. strike (Deprecated 👎)  ===========
+
+//30. strike (Deprecated 👎)  ===========
 
 
 
@@ -554,25 +742,6 @@ Parameters: ?
 
 /*
 
-1.
-link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charAt
-Heading: Getting whole characters
-question:non-BMP character
-
-2.
-non-Basic-Multilingual-Plane characters
-
-3.
-link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt
-question : different browser different output
-
-4. 
-localeCompare 
-use or not
-
-5.
-what is this
-({ toString: () => 'abc', repeat: String.prototype.repeat }).repeat(2) 
 
 
 
@@ -580,13 +749,23 @@ what is this
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/*
 pandding methods
 
 1. localeCompare
 2. match
 3. matchAll
-3. normalize
-
-
-
+4. normalize
+5. replace
 */
