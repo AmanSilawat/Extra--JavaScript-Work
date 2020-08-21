@@ -742,6 +742,371 @@ PARAMETER
 
 /*
 
+31. substr  ===========
+
+- The substr() method returns a portion of the string, starting at the specified index and extending for a given number of characters afterwards.
+
+*/
+
+'String'.substr()   // String (length- undefined)
+'String'.substr('') // String (length- undefined)
+
+'String'.substr(2) // "ring"
+'String'.substr(50) // ""
+
+'String'.substr(-2) // "ng"
+'String'.substr(-2, 13) // "ng"
+
+'String'.substr(-50) // "String"
+'String'.substr(2, 13) // "ring"
+
+'String'.substr(-13, 2) // "St"
+'String'.substr(-13, 4) // "Stri"
+'String'.substr(-13, 6) // "String"
+
+
+'Mozilla'.substr(0, 1);   // 'M'
+'Mozilla'.substr(1, 0);   // ''
+'Mozilla'.substr(-1, 1);  // 'a'
+'Mozilla'.substr(1, -1);  // ''
+'Mozilla'.substr(-3);     // 'lla'
+'Mozilla'.substr(1);      // 'ozilla'
+'Mozilla'.substr(-20, 2); // 'Mo'
+'Mozilla'.substr(20, 2);  // ''
+
+'Mozilla'.substr(NaN);  // "Mozilla"
+//For both start and length, NaN is treated as 0.
+
+/*
+SYNTEX: str.substr(start[, length])
+
+PARAMETER
+	: start
+		=> The index of the first character to include in the returned substring.
+
+	: length
+		=> Optional. The number of characters to extract.
+
+Return value:
+	: A new string containing the specified part of the given string.
+*/
+
+
+
+
+
+
+
+/*
+
+32. substring  ===========
+
+- The substring() method returns the part of the string between the start and end indexes, or to the end of the string.
+
+*/
+
+
+'String'.substring(); // 'String'			:substr- "String" (length:undefined)
+'String'.substring(''); // 'String' 		:substr- "String" (length:undefined)
+
+'String'.substring(2); 	// "ring"			:substr- "ring"
+'String'.substring(50); 	// ""			:substr-  ""
+
+'String'.substring(-2); 	// "String"		:substr- "ng"
+'String'.substring(-2, 13);// "String"		:substr- "ng"
+
+'String'.substring(-50); 	// "String"		:substr- "String"
+'String'.substring(2, 13); // "ring"		:substr- "ring"
+
+'String'.substring(-13, 2);// "St"			:substr- "St"
+'String'.substring(-13, 4);// "Stri"		:substr- "Stri"
+'String'.substring(-13, 6);// "String"		:substr- "String"
+
+
+// substring negative value representing 0 index
+'Mozilla'.substring(0, 1);   // "M"		:substr-  'M'
+'Mozilla'.substring(1, 0);   // "M"		:substr-  ''	
+'Mozilla'.substring(-1, 1);  // "M"		:substr-  'a'
+'Mozilla'.substring(1, -1);  // "M"		:substr-  ''	
+'Mozilla'.substring(-3);     // "Mozilla"	:substr-  'lla'
+'Mozilla'.substring(1);      // "ozilla"	:substr-  'ozilla'
+'Mozilla'.substring(-20, 2); // "Mo"		:substr-  'Mo'
+'Mozilla'.substring(20, 2);  // "zilla"	:substr-  ''	
+
+'Mozilla'.substring(NaN);  // "Mozilla"	:substr-  "Mozilla"
+//For both start and length, NaN is treated as 0.
+
+
+/*
+
+Syntax: str.substring(indexStart[, indexEnd])
+
+PARAMETER:
+	: indexStart
+		=> The index of the first character to include in the returned substring.
+
+	: indexEnd Optional
+		=> The index of the first character to exclude from the returned substring.
+
+Return value:
+	=> A new string containing the specified part of the given string.
+
+*/
+
+
+
+
+
+
+//33. sup (Deprecated 👎)  ===========
+
+
+
+
+
+
+
+/*
+
+34. toLowerCase  ===========
+
+- The toLowerCase() method returns the calling string value converted to lower case.
+- not effect origianl string.
+
+*/
+
+"Life is MOZ".toLowerCase(); // "life is moz"
+
+
+/*
+
+SYNTEX: str.toLowerCase()
+
+Return value: 
+	=>A new string representing the calling string converted to lower case.
+
+*/
+
+
+
+
+
+
+
+/*
+
+35. toUpperCase  ===========
+
+- The toUpperCase() method returns the calling string value converted to uppercase (the value will be converted to a string if it isn't one).
+- not effect origianl string.
+
+*/
+
+"Life is MOZ".toLowerCase(); // "life is moz"
+
+
+/*
+
+SYNTEX: str.toUpperCase()
+
+Return value: 
+	=>A new string representing the calling string converted to upper case.
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+36. toLocaleLowerCase  ===========
+
+- The toLocaleLowerCase() method returns the calling string value converted to lower case, according to any locale-specific case mappings.
+
+*/
+
+const dotted = 'İstanbul';
+
+`EN-US: ${dotted.toLocaleLowerCase('en-US')}`;
+// expected output: "i̇stanbul"
+
+`TR: ${dotted.toLocaleLowerCase('tr')}`;
+// expected output: "istanbul"
+
+'ALPHABET'.toLocaleLowerCase(); // 'alphabet'
+
+'\u0130'.toLocaleLowerCase('tr') === 'i';    // true
+'\u0130'.toLocaleLowerCase('en-US') === 'i'; // false
+
+/*
+
+SYNTEX: str.toLocaleLowerCase()
+		str.toLocaleLowerCase(locale) 
+		str.toLocaleLowerCase([locale, locale, ...])
+
+Parameters:
+	: locale Optional
+		=> The locale parameter indicates the locale to be used to convert to lower case according to any locale-specific case mappings.
+
+		=> If multiple locales are given in an Array, the best available locale is used. The default locale is the host environment’s current locale.
+
+Return value:
+	=> A new string representing the calling string converted to lower case, according to any locale-specific case mappings.
+
+*/
+
+
+
+
+
+
+
+
+
+/*
+
+37. toLocaleUpperCase  ===========
+
+- The toLocaleUpperCase() method returns the calling string value converted to lower case, according to any locale-specific case mappings.
+
+*/
+
+const city = 'istanbul';
+
+city.toLocaleUpperCase('en-US');
+// expected output: "ISTANBUL"
+
+city.toLocaleUpperCase('TR');
+// expected output: "İSTANBUL"
+
+'alphabet'.toLocaleUpperCase(); // 'ALPHABET'
+
+'Gesäß'.toLocaleUpperCase(); // 'GESÄSS'
+
+'i\u0307'.toLocaleUpperCase('lt-LT'); // 'I'
+
+/*
+
+SYNTEX: str.toLocaleUpperCase()
+		str.toLocaleUpperCase(locale) 
+		str.toLocaleUpperCase([locale, locale, ...])
+
+Parameters:
+	: locale Optional
+		=> The locale parameter indicates the locale to be used to convert to lower case according to any locale-specific case mappings.
+
+		=> If multiple locales are given in an Array, the best available locale is used. The default locale is the host environment’s current locale.
+
+Return value:
+	=> A new string representing the calling string converted to lower case, according to any locale-specific case mappings.
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+38. toString  ===========
+
+- The toString() method returns a string representing the specified object.
+
+*/
+
+new String('foo').toString(); //"foo"
+'help'.toString(); //"help"
+
+var x = {}
+x.toString(); // "[object Object]"
+
+var x = []
+x.toString(); // ""
+
+var x = ['hello', 'friends']
+x.toString(); // "hello"
+
+var x = ['hello', 'friends']
+x.toString(); // "hello, friends"
+
+/*
+
+SYNTEX: str.toString()
+
+returns value:
+	=> A string representing the calling object.
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+39. trim  ===========
+
+- The trim() method removes whitespace from both ends of a string. Whitespace in this context is all the whitespace characters (space, tab, no-break space, etc.) and all the line terminator characters (LF, CR, etc.).
+
+*/
+
+'   Hello world!   '.trim(); // "Hello world!"
+
+/*
+
+Syntax: str.trim()
+
+Return value: 
+	=> A new string representing the str stripped of whitespace from both ends.
+
+*/
+
+
+
+
+
+
+
+//40. trimEnd ( NOT AVAILABLE IN :MDN )  ===========
+//41. trimLeft ( NOT AVAILABLE IN :MDN )  ===========
+//42. trimRight ( NOT AVAILABLE IN :MDN )  ===========
+
+
+/*
+43. trimStart  ===========
+
+The trimStart() method removes whitespace from the beginning of a string. trimLeft() is an alias of this method.
+
+
+*/
+
+'   Hello world!   '.trimStart(); // "Hello world!   "
+
+
+/*
+
+Syntax : str.trimStart();
+		 str.trimLeft();
+
+Return value: 
+	=> A new string representing the calling string stripped of whitespace from its beginning (left end).
+
+
+*/
+
+
+
+
 
 
 
