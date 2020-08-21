@@ -489,8 +489,12 @@ Parameters: ?
 
 
 
-//21. padEnd  ===========
+/*
+21. padEnd  ===========
 
+-The padEnd() method pads the current string with a given string (repeated, if needed) so that the resulting string reaches a given length. The padding is applied from the end of the current string.
+
+*/
 
 'ms'.padEnd(10, '.') // "ms........"
 '20050'.padEnd(10) // "20050     "
@@ -508,9 +512,13 @@ Parameters: ?
 
 
 
+/*
+21. padStart  ===========
 
-//21. padStart  ===========
+- The padStart() method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length.
+- The padding is applied from the start of the current string.
 
+*/
 
 'ms'.padStart(10, '.') // "........ms"
 '20050'.padStart(10) // "     20050"
@@ -1110,6 +1118,119 @@ Return value:
 
 
 
+/*
+44. trimStart  ===========
+
+- The valueOf() method returns the primitive value of a String object.
+
+
+*/
+
+new String('foo').valueOf(); // "foo"
+String(new String('foo'))
+
+
+/*
+
+Syntax : str.valueOf();
+
+Return value: 
+	=> A string representing the primitive value of a given String object.
+
+
+*/
+
+
+
+
+
+
+/*
+45. valueOf  ===========
+
+- The valueOf() method returns the primitive value of a String object.
+
+
+*/
+
+new String('foo').valueOf(); // "foo"
+String(new String('foo'))
+
+
+/*
+
+Syntax : str.valueOf();
+
+Return value: 
+	=> A string representing the primitive value of a given String object.
+
+
+*/
+
+
+
+
+
+
+
+
+/*
+46. fromCharCode  ===========
+
+- The static String.fromCharCode() method returns a string created from the specified sequence of UTF-16 code units.
+
+
+*/
+
+String.fromCharCode(189, 43, 190, 61); // "½+¾="
+
+// BMP characters, in UTF-16, use a single code unit:
+String.fromCharCode(65, 66, 67);   // returns "ABC"
+String.fromCharCode(0x2014);       // returns "—"
+String.fromCharCode(0x12014);      // also returns "—"; the digit 1 is truncated and ignored
+String.fromCharCode(8212);         // also returns "—"; 8212 is the decimal form of 0x2014
+
+
+// Supplementary characters, in UTF-16, require two code units (i.e. a surrogate pair):
+String.fromCharCode(0xD83C, 0xDF03); // "🌃"
+//Code Point U+1F303 "Night with
+
+String.fromCharCode(55356, 57091);   // "🌃"
+//Stars" == "\uD83C\uDF03"
+
+String.fromCharCode(0xD834, 0xDF06, 0x61, 0xD834, 0xDF07); // "𝌆a𝌇"
+//"\uD834\uDF06a\uD834\uDF07"
+
+
+
+/*
+
+Syntax: String.fromCharCode(num1[, ...[, numN]])
+
+PARAMETER:
+	: num1, ..., numN
+		=> A sequence of numbers that are UTF-16 code units.
+		=> The range is between 0 and 65535 (0xFFFF).
+		=> Numbers greater than 0xFFFF are truncated.
+		=> No validity checks are performed.
+
+Return value:
+	=> A string of length N consisting of the N specified UTF-16 code units.
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1133,4 +1254,7 @@ pandding methods
 3. matchAll
 4. normalize
 5. replace
+
+Number.prototype.toLocaleString()
+
 */
