@@ -202,7 +202,7 @@ RETURN VALUE:
 
 
 /*
-4. copyWithin  ===========
+5. copyWithin  ===========
 
 - The copyWithin() method shallow copies part of an array to another location in the same array and returns it without modifying its length.
 
@@ -272,7 +272,7 @@ RETURN VALUE:
 
 
 /*
-5. entries  ===========
+6. entries  ===========
 
 - returns a new Array Iterator object
 - that contains the key/value pairs for each index in the array.
@@ -322,7 +322,7 @@ RETURN VALUE:
 
 
 /*
-6. every  ===========
+7. every  ===========
 
 - Tests all elements in the array pass the test implemented by the provided function.
 - It returns a Boolean value.
@@ -361,7 +361,7 @@ RETURN VALUE:
 
 
 /*
-7. fill  ===========
+8. fill  ===========
 
 - The fill() method changes all elements in an array to a static value,
 - from a start index (default 0) to an end index (default array.length).
@@ -410,13 +410,30 @@ RETURN VALUE:
 
 
 /*
-4. filter  ===========
+9. filter  ===========
 
 - creates a new array with all elements that pass the test implemented by the provided function.
 
 */
 
 [12, 5, 8, 130, 44].filter( ele => ele >= 10 ); //[12, 130, 44]
+
+
+
+// Find all prime numbers in an array -----
+const array = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; 
+
+function isPrime(num) {
+  for (let i = 2; i < num; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return num > 1;
+}
+
+array.filter(isPrime); // [2, 3, 5, 7, 11, 13]
+
 
 /*
 SYNTEX:
@@ -450,9 +467,136 @@ RETURN VALUE:
 
 
 
+/*
+10. find  ===========
+
+- The find() method returns the value of the first element in the provided array that satisfies the provided testing function.
+
+*/
+
+[5, 12, 8, 130, 44].find(ele=>ele>10); //12
+
+const inventory = [
+  {name: 'apples', quantity: 2},
+  {name: 'bananas', quantity: 0},
+  {name: 'cherries', quantity: 5}
+];
+
+function isCherries(fruit) { 
+  return fruit.name === 'cherries';
+}
+
+console.log(inventory.find(isCherries)); 
+// { name: 'cherries', quantity: 5 }
+
+/*
+SYNTEX:
+	- arr.find(callback(element[, index[, array]])[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> Function to execute on each value in the array,
+		   taking three arguments:
+
+			- element
+				=> The current element in the array.
+
+			- index (Optional)
+				=> The index (position) of the current element in the array.
+
+			- array (Optional)
+				=> The array every was called upon.
+
+	- thisArg (Optional)
+		=> Object to use as 'this' inside callback.
+
+RETURN VALUE:
+	- The value of the first element in the array that satisfies the provided testing function. Otherwise,
+	- undefined is returned.
+*/
 
 
 
+
+
+
+/*
+11. findIndex  ===========
+
+- ndex of the first element in the array that satisfies the provided testing function.
+- Otherwise, it returns -1, indicating that no element passed the test.
+
+*/
+
+[5, 12, 8, 130, 44].findIndex(element => element > 13); // 3
+
+
+// Find the index of a prime number in an array
+function isPrime(num) {
+  for (let i = 2; num > i; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return num > 1;
+}
+
+console.log([4, 6, 8, 9, 12].findIndex(isPrime)); // -1, not found
+console.log([4, 6, 7, 9, 12].findIndex(isPrime)); // 2 (array[2] is 7)
+
+/*
+SYNTEX:
+	- arr.findIndex(callback( element[, index[, array]] )[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> A function to execute on each value in the array until the function returns true, indicating that the satisfying element was found.
+		   taking three arguments:
+
+			- element
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> index current element processed in the array
+
+			- array (Optional)
+				=> The array every was called upon.
+
+	- thisArg (Optional)
+		=> A value to use as 'this' when executing callback.
+
+RETURN VALUE:
+	- The index of the first element in the array that passes the test. Otherwise, -1.
+*/
+
+
+
+
+
+
+/*
+12. flat  ===========
+
+- The flat() method creates a new array with all sub-array elements concatenated into it recursively up to the specified depth.
+
+*/
+
+['a', 'b'].concat( ['c', 'd'] ); // ["a", "b", "c", "d"]
+[1, 2,].concat( [3,4], [5, 6] ); // [1, 2, 3, 4, 5, 6]
+['a', 'b'].concat( 1, [2, 3] ); // ["a", "b", 1, 2, 3]
+[[1]].concat( [2, [3]] ); // [[1], 2, [3]]
+
+/*
+SYNTEX:
+	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+
+PARAMETERS: 
+	- valueN
+		=> accept array and value
+
+RETURN VALUE:
+	- A new Array instance.
+*/
 
 
 
