@@ -683,7 +683,7 @@ PARAMETER:
 ''.split(); //[""]
 "he is my".split(/ /); // ["he", "is", "my"]
 'aa bb cc dd ee'.split(' ', 3); // ["aa", "bb", "cc"]
-'aa bb cc'.split(' ', -2); // ["aa", "bb", "cc"]
+'aa bb cc dd'.split(' ', -2); // ["aa", "bb", "cc"]
 //					  -2 - extracts all element
 
 
@@ -691,9 +691,9 @@ PARAMETER:
 //❗This is not a robust way to reverse a string:
 //🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴
 											 
-'asdfghjkl'.split('').reverse().join('')	 //🔴
+'asdfghjkl'.split('').reverse().join('')	  //🔴
 
-'résumé'.split(/(?:)/u).reverse().join('') 	 //🔴
+'résumé'.split(/(?:)/u).reverse().join('') 	  //🔴
 											  
 //🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴 🔴
 
@@ -1038,7 +1038,7 @@ x.toString(); // "[object Object]"
 var x = []
 x.toString(); // ""
 
-var x = ['hello', 'friends']
+var x = ['hello']
 x.toString(); // "hello"
 
 var x = ['hello', 'friends']
@@ -1119,7 +1119,7 @@ Return value:
 
 
 /*
-44. trimStart  ===========
+44. valueOf  ===========
 
 - The valueOf() method returns the primitive value of a String object.
 
@@ -1146,23 +1146,31 @@ Return value:
 
 
 /*
-45. valueOf  ===========
+45. fromCodePoint  ===========
 
-- The valueOf() method returns the primitive value of a String object.
+- The static String.fromCodePoint() method returns a string created by using the specified sequence of code points.
 
 
 */
 
-new String('foo').valueOf(); // "foo"
-String(new String('foo'))
+String.fromCodePoint(9731, 9733, 9842, 0x2F804); //☃★♲你
 
+String.fromCodePoint(42);       // "*"
+String.fromCodePoint(65, 90);   // "AZ"
+String.fromCodePoint(0x404);    // "\u0404" == "Є"
+String.fromCodePoint(0x2F804);  // "\uD87E\uDC04"
+String.fromCodePoint(194564);   // "\uD87E\uDC04"
+String.fromCodePoint(0x1D306, 0x61, 0x1D307); // "\uD834\uDF06a\uD834\uDF07"
 
 /*
 
-Syntax : str.valueOf();
+Syntax : String.fromCodePoint(num1[, ...[, numN]])
+
+PARAMETER: -num1, ..., numN
+			=>A sequence of code points.
 
 Return value: 
-	=> A string representing the primitive value of a given String object.
+	=> A string created by using the specified sequence of code points.
 
 
 */
@@ -1224,6 +1232,62 @@ Return value:
 
 
 
+/*
+47. replaceAll  ===========
+🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨
+
+🟨	August 2020 replaceAll() method
+	supported by Firefox but not by Chrome.
+🟨	It will become available in Chrome 85.
+
+🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨	🟨
+
+
+- returns a new string with all matches of a pattern replaced by a replacement.
+- The pattern can be a string or a RegExp,
+  and the replacement can be a string
+  or
+  a function to be called for each match.
+
+*/
+
+// | | | | | | | | | |  (only working in firefox)
+// ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+//"Ab ab Ab ab".replaceAll(/a/g, 'S');  //"Ab Sb Ab Sb"
+//"Ab ab Ab ab".replaceAll(/a/gi, 'S'); //"Sb Sb Sb Sb"
+
+/*
+Syntax:
+const newStr = str.replaceAll(regexp|substr, newSubstr|function)
+
+
+PARAMETER: 
+
+regexp (pattern): // | | | | | | | | | |
+				  // ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼ ▼
+🟨	🟨	🟨
+
+🟨	when using a `regexp` you must
+	have to set the global ("g") flag;
+🟨	otherwise,
+ 	it will throw a TypeError:
+🟨	=>"replaceAll must be called with a global RegExp".
+
+🟨	🟨	🟨
+
+substr:
+	- A String that is to be replaced by newSubstr.
+	It is treated as a literal string and is not interpreted as a regular expression.
+
+newSubstr (replacement):
+	- replace to this string
+
+function (replacement): 
+	- invoke a funcion to
+	replace the matches given regexp or substr
+
+Return value: 
+	- A new string, with all matches of a pattern replaced by a replacement.
 
 
 
@@ -1232,9 +1296,109 @@ Return value:
 
 
 
+/*
+48. String.prototype[@@iterator]()  ===========
+
+- The [@@iterator]() method returns a new Iterator object that iterates over the code points of a String value,
+- returning each code point as a String value.
+
+*/
+
+var iterator = "String"[Symbol.iterator]();
+var theChar = iterator.next();
+
+while (!theChar.done && theChar.value != ' ') {
+	theChar.value   /// this line is inside of console.log
+	theChar = iterator.next();
+}
+// expected output: "T"
+//                  "h"
+//                  "e"
+
+iterator // output: StringIterator {}
 
 
 
+var str = 'A\uD835\uDC68';
+
+var strIter = str[Symbol.iterator]();
+
+strIter.next().value; // "A"
+strIter.next().value; // "\uD835\uDC68"
+
+
+//---
+var str = 'A\uD835\uDC68B\uD835\uDC69C\uD835\uDC6A';
+for (var v of str) {
+	v; // console the v
+}
+// expected output :
+// A
+// 𝑨
+// B
+// 𝑩
+// C
+// 𝑪
+
+/*
+
+Syntax : str[Symbol.iterator]
+
+Return value: A new Iterator object.
+
+*/
+
+
+
+
+
+
+/*
+49. String.raw  ===========
+
+The static String.raw() method is a tag function of template literals. This is similar to the r prefix in Python, or the @ prefix in C# for string literals. (But it is not identical; see explanations in this issue.) It's used to get the raw string form of template strings, that is, substitutions (e.g. ${foo}) are processed, but escapes (e.g. \n) are not.
+
+*/
+
+String.raw`C:\Development\profile\aboutme.html` //(console this)
+//C:\Development\profile\aboutme.html
+
+'C:\Development\profile\aboutme.html' //(console this)
+//output-C:Developmentprofileaboutme.html
+
+//`C:\Development\profile\aboutme.html` //(console this)
+//output-C:Developmentprofileaboutme.html
+
+//`C:\\Development\\profile\\aboutme.html` //(console this)
+//output-C:\Development\profile\aboutme.html
+
+
+
+/*
+Syntax:
+	String.raw(callSite, ...substitutions)
+	String.raw`templateString`
+
+PARAMETER:
+	-callSite
+		=> Well-formed template call site object,
+		   like { raw: ['foo', 'bar', 'baz'] }.
+
+	- ...substitutions
+		=> Contains substitution values.
+
+	- templateString
+		=> A template string,
+		   optionally with substitutions (${...}).
+
+Return value:
+	- The raw string form of a given template string.
+
+Exceptions
+	- TypeError
+		=> A TypeError is thrown
+		   if the first argument is not a well-formed object.
+*/
 
 
 
@@ -1247,7 +1411,7 @@ Return value:
 
 
 /*
-pandding methods
+pandding deep learning
 
 1. localeCompare
 2. match
