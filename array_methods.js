@@ -381,7 +381,7 @@ Array(3).fill(4);                 // [4, 4, 4] empty-3-element
 [].fill.call({ length: 3 }, 4);   // {0: 4, 1: 4, 2: 4, length: 3}
 
 // A single object, referenced by each slot of the array:
-let arr = Array(3).fill({}); // [{}, {}, {}]
+var arr = Array(3).fill({}); // [{}, {}, {}]
 arr[0].hi = "hi" ;           // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
 
 /*
@@ -486,7 +486,7 @@ function isCherries(fruit) {
   return fruit.name === 'cherries';
 }
 
-console.log(inventory.find(isCherries)); 
+inventory.find(isCherries);  // console this line
 // { name: 'cherries', quantity: 5 }
 
 /*
@@ -541,8 +541,8 @@ function isPrime(num) {
   return num > 1;
 }
 
-console.log([4, 6, 8, 9, 12].findIndex(isPrime)); // -1, not found
-console.log([4, 6, 7, 9, 12].findIndex(isPrime)); // 2 (array[2] is 7)
+[4, 6, 8, 9, 12].findIndex(isPrime); // -1, not found
+[4, 6, 7, 9, 12].findIndex(isPrime); // 2 (array[2] is 7)
 
 /*
 SYNTEX:
@@ -581,29 +581,199 @@ RETURN VALUE:
 
 */
 
-['a', 'b'].concat( ['c', 'd'] ); // ["a", "b", "c", "d"]
-[1, 2,].concat( [3,4], [5, 6] ); // [1, 2, 3, 4, 5, 6]
-['a', 'b'].concat( 1, [2, 3] ); // ["a", "b", 1, 2, 3]
-[[1]].concat( [2, [3]] ); // [[1], 2, [3]]
+[0, 1, 2, [3, 4]].flat(); // [0, 1, 2, 3, 4]
+[0, 1, 2, [[[3, 4]]]].flat(); // [0, 1, 2, [3, 4]]
+[0, 1, 2, [[[3, 4, [5],[[5]]]]]].flat(Infinity); // [0, 1, 2, 3, 4, 5, 5]
+
+// The flat method removes empty slots in arrays:
+[1, 2, , 4, 5].flat(); // [1, 2, 4, 5]
+
+
 
 /*
 SYNTEX:
-	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+	- var newArray = arr.flat([depth]);
 
 PARAMETERS: 
-	- valueN
-		=> accept array and value
+	- depth
+		=> The depth level specifying how deep a nested array structure should be flattened. Defaults to 1.
 
 RETURN VALUE:
-	- A new Array instance.
+	- A new array with the sub-array elements concatenated into it.
 */
 
 
 
 
 
+
 /*
-panding learning
+13. flatMap  ===========
+
+- The flatMap() method first maps each element using a mapping function, then flattens the result into a new array.
+- It is identical to a map() followed by a flat() of depth 1,
+- but flatMap() is often quite useful,
+- as merging both into one method is slightly more efficient.
+
+
+
+*/
+
+//BOTH ARE SAME OUTPUT  [1, 2, 2, 4, 3, 6, 4, 8]
+[1, 2, 3, 4].flatMap( x=> [x, x*2]);
+[1, 2, 3, 4].reduce((acc, x) => acc.concat([x, x * 2]), []);
+
+[1, 2, 3, 4].map(x => [x * 2]); // [[2], [4], [6], [8]]
+[1, 2, 3, 4].flatMap(x => [x * 2]); // [2, 4, 6, 8]
+
+// only one level is flattened
+[1, 2, 3, 4].flatMap(x => [[x * 2]]); // [[2], [4], [6], [8]]
+
+
+
+//............
+//For adding and removing items during a map()
+
+// Let's say we want to remove all the negative numbers
+// and split the odd numbers into an even number and a 1
+var a = [5, 4, -3, 20, 17, -33, -4, 18];
+//       |\  \  x   |  | \   x   x   |
+//      [4,1, 4,   20, 16, 1,       18]
+
+a.flatMap( (n) =>
+  (n < 0) ?      [] :
+  (n % 2 == 0) ? [n] :
+                 [n-1, 1]
+);
+
+// expected output: [4, 1, 4, 20, 16, 1, 18]
+//...........
+
+/*
+SYNTEX:
+	- var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
+		// return element for new_array
+	}[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> Function to execute on each value in the array,
+		   taking three arguments:
+
+			- element
+				=> The current element in the array.
+
+			- index (Optional)
+				=> The index (position) of the current element in the array.
+
+			- array (Optional)
+				=> The array 'map' was called upon.
+
+	- thisArg (Optional)
+		=> Object to use as 'this' inside callback.
+
+RETURN VALUE:
+	- A new array with each element being the result of the callback function and flattened to a depth of 1.
+*/
+
+
+
+
+
+
+
+/*
+14. forEach  ===========
+
+- The forEach() method executes a provided function once for each array element.
+
+*/
+
+
+
+['a', 'b', 'c'].forEach(element => /*console.log(*/element);
+// expected output: "a"
+// expected output: "b"
+// expected output: "c"
+
+
+//.......
+// No operation for uninitialized values (sparse arrays)
+let numCallbackRuns = 0;
+
+[1,3,,7].forEach((element) => {
+  element  //console this line
+  numCallbackRuns++
+});
+
+"numCallbackRuns: ", numCallbackRuns; //console this line
+// 1
+// 3
+// 7
+// numCallbackRuns: 3
+// comment: as you can see the missing value between 3 and 7 didn't invoke callback function.
+
+
+
+// .........
+// ------------------------------------------------ Using thisArg *
+function Counter() {
+  this.sum = 0
+  this.count = 0
+}
+Counter.prototype.add = function(array) {
+  array.forEach((entry) => {
+    this.sum += entry
+    ++this.count
+  }, this)
+  // ^---- Note
+}
+
+const obj = new Counter()
+obj.add([2, 5, 9])
+obj.count
+// 3 
+obj.sum
+// 16
+
+
+/*
+SYNTEX:
+	- arr.forEach(callback(currentValue [, index [, array]])[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> A function to execute on each value in the array until the function returns true, indicating that the satisfying element was found.
+		   taking three arguments:
+
+			- element
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> index current element processed in the array
+
+			- array (Optional)
+				=> The array every was called upon.
+
+	- thisArg (Optional)
+		=> A value to use as 'this' when executing callback.
+
+RETURN VALUE:
+	- undefined.
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*
+learn panding
 1. copyWithin
 
 question
