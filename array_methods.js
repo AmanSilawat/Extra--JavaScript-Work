@@ -85,9 +85,384 @@ RETURN VALUE:
 
 
 /*
-1. Array.isArray  ===========
+2. Array.isArray  ===========
 
-- The Array.from() static method creates a new,
-shallow-copied Array instance from an array-like or iterable object.
+- The Array.isArray() method determines whether the passed value is an Array.
 
+*/
+
+Array.isArray([1, 2, 3]);  // true
+Array.isArray({foo: 123}); // false
+Array.isArray('foobar');   // false
+Array.isArray(undefined);  // false
+
+// all following calls return true
+Array.isArray([]);
+Array.isArray([1]);
+Array.isArray(new Array());
+Array.isArray(new Array('a', 'b', 'c', 'd'));
+Array.isArray(new Array(3));
+// Little known fact: Array.prototype itself is an array:
+Array.isArray(Array.prototype); 
+
+// all following calls return false
+Array.isArray();
+Array.isArray({});
+Array.isArray(null);
+Array.isArray(undefined);
+Array.isArray(17);
+Array.isArray('Array');
+Array.isArray(true);
+Array.isArray(false);
+Array.isArray(new Uint8Array(32));
+Array.isArray({ __proto__: Array.prototype });
+
+/*
+SYNTEX:
+	- Array.isArray(value)
+
+PARAMETERS: 
+	- value
+		=> The value to be checked.
+
+RETURN VALUE:
+	- true if the value is an Array;
+	  otherwise, false.
+*/
+
+
+
+
+
+
+
+
+
+
+/*
+3. Array.of  ===========
+
+- The Array.of() method creates a new Array instance from a variable number of arguments, regardless of number or type of the arguments.
+
+*/
+
+Array.of(7);       // [7] 
+Array.of(1, 2, 3); // [1, 2, 3]
+Array.of(undefined); // [undefined]
+
+Array(7);          // array of 7 empty slots
+Array(1, 2, 3);    // [1, 2, 3]
+
+/*
+SYNTEX:
+	- Array.of(element0[, element1[, ...[, elementN]]])
+
+PARAMETERS: 
+	- elementN
+		=> Elements used to create the array.
+
+RETURN VALUE:
+	- A new Array instance.
+*/
+
+
+
+
+
+
+/*
+4. concat  ===========
+
+- marge to or more array
+- doesn't change original array
+- return a array
+
+*/
+
+['a', 'b'].concat( ['c', 'd'] ); // ["a", "b", "c", "d"]
+[1, 2,].concat( [3,4], [5, 6] ); // [1, 2, 3, 4, 5, 6]
+['a', 'b'].concat( 1, [2, 3] ); // ["a", "b", 1, 2, 3]
+[[1]].concat( [2, [3]] ); // [[1], 2, [3]]
+
+/*
+SYNTEX:
+	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+
+PARAMETERS: 
+	- valueN
+		=> accept array and value
+
+RETURN VALUE:
+	- A new Array instance.
+*/
+
+
+
+
+
+
+/*
+4. copyWithin  ===========
+
+- The copyWithin() method shallow copies part of an array to another location in the same array and returns it without modifying its length.
+
+*/
+
+[1, 2, 3, 4, 5].copyWithin(-2); // [1, 2, 3, 1, 2]
+[1, 2, 3, 4, 5].copyWithin(-8); // [1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5].copyWithin(0, 3); /*
+[4, 5, 3, 4, 5]
+ ▲        ▲ 
+ |        | 
+ 0	      3
+ target   start    */
+
+
+[1, 2, 3, 4, 5].copyWithin(0, 3, 4); /*
+[4, 2, 3, 4, 5]
+ ▲        ▲  ▲__ end copy (not including end)
+ |        | 
+ 0	      3
+ target   start    */
+
+
+[1, 2, 3, 4, 5].copyWithin(-2, -3, -1); /*   ??????????????????
+[1, 2, 3, 3, 4]
+       ▲  ▲  ▲__ end copy (not including end)
+       |  |   
+      -3 -2	    
+   start  target       */
+
+
+
+
+/*
+SYNTEX:
+	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+
+PARAMETERS: 
+	- target
+		=> Zero-based index at which to copy the sequence to.
+		=> If negative, target will be counted from the end.
+		=> If target is at or greater than arr.length,
+		   nothing will be copied.
+		=> If target is positioned after start,
+		   the copied sequence will be trimmed to fit arr.length.
+
+	- start
+		=> Zero-based index at which to start copying elements from.
+		=> If negative,start will be counted from the end.
+		=> If start is omitted, copyWithin will copy from index 0. 
+
+	- end
+		=> Zero-based index at which to end copying elements from.
+		=> copyWithin copies up to but not including end.
+		=> If negative, end will be counted from the end.
+		=> If end is omitted,
+		   copyWithin will copy until the last index (default to arr.length).
+
+RETURN VALUE:
+	- The modified array.
+*/
+
+
+
+
+
+
+
+/*
+5. entries  ===========
+
+- returns a new Array Iterator object
+- that contains the key/value pairs for each index in the array.
+
+*/
+
+var arr1 = ['a', 'b'];
+var iterator = arr1.entries();
+
+iterator.next().value; // [0, "a"]
+iterator.next().value; // [1, "b"]
+
+//... Iterating with index and element
+var a = ['a', 'b', 'c'];
+for ( var [i, ele] of a.entries() ) {
+	i, ele // console this line
+}
+//0 "a"
+//1 "b"
+//2 "c"
+
+
+//... Using a for…of loop
+var a = ['a', 'b', 'c'];
+var iterator = a.entries();
+
+for (let e of iterator) {
+	e; //console this line
+}
+// [0, 'a']
+// [1, 'b']
+// [2, 'c'] 
+
+
+/*
+SYNTEX:
+	- array.entries()
+
+RETURN VALUE:
+	- A new Array iterator object.
+*/
+
+
+
+
+
+
+
+/*
+6. every  ===========
+
+- Tests all elements in the array pass the test implemented by the provided function.
+- It returns a Boolean value.
+
+*/
+
+[1, 30, 39, 29, 10, 13].every( ele=> ele < 40); // true
+
+/*
+SYNTEX:
+	- arr.every(callback(element[, index[, array]])[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> A function to test for each element,
+		   taking three arguments:
+
+			- element
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> index current element processed in the array
+
+			- array (Optional)
+				=> The array every was called upon.
+
+	- thisArg (Optional)
+		=> A value to use as 'this' when executing callback.
+
+RETURN VALUE:
+	- true if the callback function returns a truthy value for every array element. Otherwise, false.
+*/
+
+
+
+
+
+/*
+7. fill  ===========
+
+- The fill() method changes all elements in an array to a static value,
+- from a start index (default 0) to an end index (default array.length).
+- It returns the modified array.
+
+*/
+
+[1, 2, 3].fill(4);                // [4, 4, 4]
+[1, 2, 3].fill(4, 1);             // [1, 4, 4]
+[1, 2, 3].fill(4, 1, 2);          // [1, 4, 3]
+[1, 2, 3].fill(4, 1, 1);          // [1, 2, 3]
+[1, 2, 3].fill(4, 3, 3);          // [1, 2, 3]
+[1, 2, 3].fill(4, -3, -2);        // [4, 2, 3] length-2 = 1
+[1, 2, 3].fill(4, NaN, NaN);      // [1, 2, 3]
+[1, 2, 3].fill(4, 3, 5);          // [1, 2, 3]
+Array(3).fill(4);                 // [4, 4, 4] empty-3-element
+[].fill.call({ length: 3 }, 4);   // {0: 4, 1: 4, 2: 4, length: 3}
+
+// A single object, referenced by each slot of the array:
+let arr = Array(3).fill({}); // [{}, {}, {}]
+arr[0].hi = "hi" ;           // [{ hi: "hi" }, { hi: "hi" }, { hi: "hi" }]
+
+/*
+SYNTEX:
+	- arr.fill(value[, start[, end]])
+
+PARAMETERS: 
+	- value
+		=> Value to fill the array with.
+		  (Note all elements in the array will be this exact value.)
+
+	- start (Optional)
+		=> Start index, default 0.
+
+	- end (Optional)
+		=> End index, default arr.length.   
+		=> given value is not included (according to me)
+
+RETURN VALUE:
+	- The modified array, filled with value.
+*/
+
+
+
+
+
+
+/*
+4. filter  ===========
+
+- creates a new array with all elements that pass the test implemented by the provided function.
+
+*/
+
+[12, 5, 8, 130, 44].filter( ele => ele >= 10 ); //[12, 130, 44]
+
+/*
+SYNTEX:
+	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+
+PARAMETERS: 
+	- callback
+		=> To test each element of the array.
+		   Return true to keep the element, false otherwise.
+		   taking three arguments:
+
+			- element
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> index current element processed in the array
+
+			- array (Optional)
+				=> The array every was called upon.
+
+	- thisArg (Optional)
+		=> A value to use as 'this' when executing callback.
+
+RETURN VALUE:
+	- A new array with the elements that pass the test. If no elements pass the test, an empty array will be returned.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+panding learning
+1. copyWithin
+
+question
+link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+heading: Affecting Initial Array (modifying, appending, and deleting)
 */
