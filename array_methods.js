@@ -421,7 +421,7 @@ RETURN VALUE:
 
 
 // Find all prime numbers in an array -----
-const array = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; 
+var array = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]; 
 
 function isPrime(num) {
   for (let i = 2; i < num; i++) {
@@ -729,11 +729,11 @@ Counter.prototype.add = function(array) {
   // ^---- Note
 }
 
-const obj = new Counter()
-obj.add([2, 5, 9])
-obj.count
+var obj = new Counter();
+obj.add([2, 5, 9]);
+obj.count;
 // 3 
-obj.sum
+obj.sum;
 // 16
 
 
@@ -767,6 +767,369 @@ RETURN VALUE:
 
 
 
+/*
+15. includes  ===========
+
+- this method determines whether an array includes a certain value among its entries, returning true or false as appropriate
+
+*/
+
+[1, 2, 3].includes(2); // true
+['aaa', 'bbb', 'ccc'].includes('aaa'); // true
+['aaa', 'bbb', 'ccc'].includes('aa'); // true
+
+[1, 2, 3].includes(2);      // true
+[1, 2, 3].includes(4);      // false
+[1, 2, 3].includes(3, 3);   // false
+[1, 2, 3].includes(3, -1);  // true
+[1, 2, NaN].includes(NaN);  // true
+
+
+/*
+SYNTEX:
+	- arr.includes(valueToFind[, fromIndex])
+
+PARAMETERS: 
+	- valueToFind
+		=> The value to search for
+
+	- fromIndex (Optional)
+		=> The position in this array at which to begin searching for valueToFind.
+
+RETURN VALUE:
+	- A Boolean.
+*/
+
+
+
+
+
+
+
+
+/*
+16. indexOf  ===========
+
+- The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+
+*/
+
+['ant', 'bison', 'camel', 'bison'].indexOf('bison'); // 1
+['ant', 'bison', 'camel', 'bison'].indexOf('bison', 1); // 1
+['ant', 'bison', 'camel', 'bison'].indexOf('bison', 2); // 3
+['ant', 'bison', 'camel', 'bison'].indexOf('giraffe'); // -1
+
+[2, 9, 9].indexOf(2);     // 0
+[2, 9, 9].indexOf(7);     // -1
+[2, 9, 9].indexOf(9, 2);  // 2
+[2, 9, 9].indexOf(2, -1); // -1
+[2, 9, 9].indexOf(2, -3); // 0
+
+var indices = [];
+var array = ['a', 'b', 'a', 'c', 'a', 'd'];
+var element = 'a';
+var idx = array.indexOf(element);
+while (idx != -1) {
+  indices.push(idx);
+  idx = array.indexOf(element, idx + 1);
+}
+/*console.log(*/indices;
+// [0, 2, 4]
+
+
+/*
+SYNTEX:
+	- arr.indexOf(searchElement[, fromIndex])
+
+PARAMETERS: 
+	- searchElement
+		=> Element to locate in the array.
+
+	- fromIndex
+		=> index is grater array or equal to the array length, -1 return
+
+RETURN VALUE:
+	- A new Array instance.
+*/
+
+
+
+
+
+
+
+
+
+/*
+17. join  ===========
+
+- The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+
+*/
+
+['Fire', 'Air', 'Water'].join(); 		  // "Fire,Air,Water"
+['Fire', 'Air', 'Water'].join(undefined); // "Fire,Air,Water"
+
+['Fire', 'Air', 'Water'].join(''); // "FireAirWater"
+['Fire', 'Air', 'Water'].join([]); // "FireAirWater"
+
+['Fire', 'Air', 'Water'].join('-'); // "Fire-Air-Water"
+['Fire', 'Air', 'Water'].join(null); // "FirenullAirnullWater"
+
+
+/*
+SYNTEX:
+	- arr.join([separator])
+
+PARAMETERS: 
+	- separator (Optional)
+		=> Specifies string to separate a array.
+		=> The separator is converted to a string if necessary.
+		=> If omitted, the array elements are separated with a comma (","). If separator is an empty string, all elements are joined without any characters in between them.Elementto locate in the array.
+
+	- fromIndex
+		=> index is grater array or equal to the array length, -1 return
+
+RETURN VALUE:
+	- A string with all array elements joined. If arr.length is 0, the empty string is returned.
+*/
+
+
+
+
+
+
+/*
+18. keys  ===========
+
+- The keys() method returns a new Array Iterator object that contains the keys for each index in the array.
+
+*/
+
+['a', 'b', 'c'].keys();
+for (const key of iterator) {
+  key // console this line
+}
+// output:
+// 0
+// 1
+// 2
+
+['a', , 'c'].keys(); // Array Iterator
+Object.keys( ['a', , 'c'] );   // ['0', '2']
+[...arr.keys( ['a', , 'c'] )]; // [0, 1, 2]
+
+
+/*
+SYNTEX:
+	- arr.keys()
+
+RETURN VALUE:
+	- A new Array iterator object.
+*/
+
+
+
+
+
+/*
+19. lastIndexOf  ===========
+
+- return last index at which a given element can be found in the array,
+  or
+  -1 if it is not present.
+- The array is searched backwards, starting at fromIndex.
+
+*/
+
+['Dodo', 'Tiger', 'Penguin', 'Dodo'].lastIndexOf('Dodo'); // 3
+['Dodo', 'Tiger', 'Penguin', 'Dodo'].lastIndexOf('Tiger'); // 1
+
+
+[2, 5, 9, 2].lastIndexOf(2);     // 3
+[2, 5, 9, 2].lastIndexOf(7);     // -1
+[2, 5, 9, 2].lastIndexOf(2, 3);  // 3
+[2, 5, 9, 2].lastIndexOf(2, 2);  // 0
+[2, 5, 9, 2].lastIndexOf(2, -2); // 0
+[2, 5, 9, 2].lastIndexOf(2, -1); // 3
+
+/*
+SYNTEX:
+	- arr.lastIndexOf(searchElement[, fromIndex])
+
+PARAMETERS: 
+	- searchElement
+		=> Element to locate in the array.
+
+	- fromIndex (Optional)
+		=> searching srtart to backwards.
+		=> default- arr.length
+		=> index is grater array or equal to the array length, -1 return
+
+RETURN VALUE:
+	- The last index of the element in the array; -1 if not found.
+*/
+
+
+
+
+
+
+
+/*
+20. Map  ===========
+
+- create new array same array size.
+- transform a array.
+
+*/
+
+
+[1, 2, 3, 4].map(x => x * 2); // 2, 4, 6, 8
+
+[1, 4, 9].map( num => Math.sqrt(num) ) // [1, 2, 3]
+
+
+var a = Array.prototype.map.call('Hello World', x => x.charCodeAt(0));
+/*console.log(*/a;
+
+// a now equals [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100]
+
+// Tricky use case
+["1", "2", "3"].map(parseInt);
+
+// parseInt(string, radix) -> map(parseInt(value, index))
+/*  first iteration  (index is 0): */ parseInt("1", 0)  // 1
+/*  second iteration (index is 1): */ parseInt("2", 1)  // NaN
+/*  third iteration  (index is 2): */ parseInt("3", 2)  // NaN
+
+
+
+
+
+function returnInt(element) {
+  return parseInt(element, 10)
+}
+
+['1', '2', '3'].map(returnInt); // [1, 2, 3]
+// Actual result is an array of numbers (as expected)
+
+['1', '2', '3'].map( str => parseInt(str) ); // [1, 2, 3]
+
+// A simpler way to achieve the above, while avoiding the "gotcha":
+['1', '2', '3'].map(Number);  // [1, 2, 3]
+
+// But unlike parseInt(), Number() will also return a float or (resolved) exponential notation:
+['1.1', '2.2e2', '3e300'].map(Number);  // [1.1, 220, 3e+300]
+
+// For comparison, if we use parseInt() on the array above:
+['1.1', '2.2e2', '3e300'].map( str => parseInt(str) ); // [1, 2, 3]
+
+
+/*
+SYNTEX:
+	let new_array = arr.map(function callback( currentValue[, index[, array]]) {
+    // return element for new_array
+}[, thisArg])
+
+PARAMETERS: 
+	- callback
+		=> Function that is called for every element of arr.
+		   Each time callback executes, the returned value is added to new_array.
+		   taking three arguments:
+
+			- currentValue
+				=> The current element in the array.
+
+			- index (Optional)
+				=> The index (position) of the current element in the array.
+
+			- array (Optional)
+				=> The array 'map' was called upon.
+
+	- thisArg (Optional)
+		=> Value to use as this when executing callback.
+
+RETURN VALUE:
+	- A new array with each element being the result of the callback function.
+*/
+
+
+
+
+
+
+
+/*
+21. pop  ===========
+
+- removes the last element from an array and returns that element.
+- This method changes the length of the array.
+
+*/
+
+var arr = ['broccoli', 'kale', 'tomato', 'cabbage'];
+/* return */ arr.pop(); // 'cabbage'
+
+/* console.log( */arr; // ["broccoli", "kale", "tomato"]
+
+
+
+
+// ????????????????????????????????????????????????????
+// ????????????????????????????????????????????????????
+
+var x = {1: 'a', 2: 'b', 3: 'c', length: 3};
+var popped = Array.prototype.pop.call(x);
+console.log(popped);
+console.log(x);
+
+/*
+SYNTEX:
+	arrName.pop()
+
+RETURN VALUE:
+	- The removed element from the array; undefined if the array is empty.
+*/
+
+
+
+
+
+
+
+/*
+22. push  ===========
+
+- The push() method adds one or more elements to the end of an array and returns the new length of the array.
+
+*/
+
+var arr = ['aa', 'bb', 'cc'];
+/* return */ arr.push('dd'); // 4
+/* console.log( */arr; // ["aa", "bb", "cc", "dd"]
+
+
+// Merging two arrays ---
+var arr1 = ['aa', 'bb'];
+var arr2 = ['cc', 'dd'];
+
+Array.prototype.push.apply(arr1, arr2)
+console.log(arr1);  // ['parsnip', 'potato', 'celery', 'beetroot']
+
+
+
+/*
+SYNTEX:
+	arr.push([element1[, ...[, elementN]]])
+
+PARAMETERS:
+	- elementN
+		=> The element(s) to add to the end of the array.
+
+RETURN VALUE:
+	- The new length property of the object upon which the method was called.
+*/
 
 
 
