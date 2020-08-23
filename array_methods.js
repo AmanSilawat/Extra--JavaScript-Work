@@ -1180,7 +1180,7 @@ let sum = [{x: 1}, {x: 2}, {x: 3}].reduce(function (acc, curVal) {
 
 
 // ................... pair 3 start
-let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
 
 let countedNames = names.reduce(function (allNames, name) {
 	if (name in allNames) {
@@ -1276,8 +1276,233 @@ RETURN VALUE:
 
 
 /*
+24. reduceRight  ===========
+
+- The reduceRight() method applies a function against an accumulator and each value of the array (from right-to-left) to reduce it to a single value.
+
+*/
+
+const array1 = [[0, 1], [2, 3], [4, 5]].reduceRight(
+  (accumulator, currentValue) => accumulator.concat(currentValue)
+);
+
+array1;
+// expected output: Array [4, 5, 2, 3, 0, 1]
+
+
+/*
+SYNTEX:
+	- arr.reduceRight(callback(accumulator, currentValue[, index[, array]])[, initialValue])
+
+PARAMETERS: 
+	- callback
+		=> Function to execute on each value in the array,
+		   taking four arguments:
+
+			- accumulator
+				=> The value previously returned in the last invocation of the callback, or initialValue, if supplied. (See below.)
+
+			- currentValue
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> The index of the current element being processed in the array.
+
+			- array (Optional)
+				=> The array reduceRight() was called upon.
+
+	- initialValue (Optional)
+		=> Value to use as accumulator to the first call of the callback.
+		=> If no initial value is supplied, the last element in the array will be used and skipped.
+		=> Calling reduce or reduceRight on an empty array without an initial value creates a TypeError.
+
+RETURN VALUE:
+	- The value that results from the reduction.
+*/
+
+
+
+
+
+
+
+
+/*
+25. reverse  ===========
+
+- The reverse() method reverses an array in place. The first array element becomes the last, and the last array element becomes the first.
+
+*/
+
+['one', 'two', 'three'].reverse(); // ["three", "two", "one"]
+
+
+/*
+SYNTEX:
+	- a.reverse()
+
+RETURN VALUE:
+	- The reversed array.
+*/
+
+
+
+
+
+/*
+26. shift  ===========
+
+- The shift() method removes the first element from an array and returns that removed element. This method changes the length of the array.
+
+*/
+
+var arr = [5, 2, 3];
+var x = arr.shift(); // 5
+arr; // [2, 3]
+
+[].shift(); // undefined
+
+
+var names = ["Andrew", "Edward", "Paul", "Chris" ,"John"];
+
+while( (i = names.shift()) !== undefined ) {
+    /*console.log(*/i;
+}
+// Andrew, Edward, Paul, Chris, John
+
+/*
+SYNTEX:
+	- arr.shift()
+
+RETURN VALUE:
+	- The removed element from the array; undefined if the array is empty.
+*/
+
+
+
+
+
+
+
+/*
+27. slice  ===========
+
+- The slice() method returns a shallow copy of a portion of an array into a new array object selected from start to end (end not included) where start and end represent the index of items in that array.
+- The original array will not be modified.
+
+*/
+
+var arr = ['aa', 'bb', 'cc', 'dd', 'ee'];
+arr.slice();		// ["aa", "bb", "cc", "dd", "ee"]
+arr.slice(2);		// ["cc", "dd", "ee"]
+arr.slice(-1);		// ["ee"]
+arr.slice(-2);		// ["dd", "ee"]
+arr.slice(2, 4);	// ["cc", "dd"]
+arr.slice(1, 5);	// ["bb", "cc", "dd", "ee"]
+arr.slice(1, -1);	// ["bb", "cc", "dd"]
+arr.slice(-3, -1);	// ["cc", "dd"]
+
+
+/*
+SYNTEX:
+	- arr.slice([start[, end]])
+
+PARAMETERS:
+
+	- start
+		=> Zero-based index at which to start extraction.
+		=> A negative index can be used,
+		   indicating an offset from the end of the sequence.
+		=> slice(-2) extracts the last two elements in the sequence.
+		=> If start is undefined, slice starts from the index 0.
+		=> If start is greater than the index range of the sequence,
+		   an empty array is returned.
+
+	- end
+		=> Zero-based index before which to end extraction.
+		   slice extracts up to but not including end.
+		   For example, slice(1,4) extracts the second element through the fourth element (elements indexed 1, 2, and 3).
+
+		=> A negative index can be used,
+		   indicating an offset from the end of the sequence.
+		   slice(2,-1) extracts the third element through the second-to-last element in the sequence.
+
+		=> If end is omitted,
+		   slice extracts through the end of the sequence (arr.length).
+
+		=> If end is greater than the length of the sequence,
+		   slice extracts through to the end of the sequence (arr.length).
+
+RETURN VALUE:
+	- A new array containing the extracted elements.
+*/
+
+
+
+
+
+
+/*
+28. some  ===========
+
+- The some() method tests whether at least one element in the array passes the test implemented by the provided function.
+- It returns a Boolean value.
+
+*/
+
+[1, 2, 3, 4, 5].some(ele=> ele % 2 === 0); //true
+
+
+/*
+SYNTEX:
+	- arr.some(callback(element[, index[, array]])[, thisArg])
+
+PARAMETERS:
+	
+	- callback
+		=> A function to test for each element,
+		   taking three arguments:
+
+		- element
+			=> The current element being processed in the array.
+
+		- index (ptional)
+			=> The index of the current element being processed in the array.
+
+		- array (Optional)
+			=> The array some() was called upon.
+
+	- thisArg (Optional)
+	=> A value to use as this when executing callback.
+
+RETURN VALUE:
+	- true if the callback function returns a truthy value for at least one element in the array. Otherwise, false<.
+*/
+
+
+
+
+
+
+/*
 learn panding
 1. copyWithin
+
+question
+link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+heading: Affecting Initial Array (modifying, appending, and deleting)
+*/
+
+
+
+
+
+
+/*
+learn panding
+1. copyWithin
+2. reduce
+3. reduceRight
 
 question
 link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
