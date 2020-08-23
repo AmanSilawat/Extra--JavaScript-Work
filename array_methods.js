@@ -1081,8 +1081,8 @@ var arr = ['broccoli', 'kale', 'tomato', 'cabbage'];
 
 var x = {1: 'a', 2: 'b', 3: 'c', length: 3};
 var popped = Array.prototype.pop.call(x);
-console.log(popped);
-console.log(x);
+/*console.log(*/ popped;
+/*console.log(*/ x;
 
 /*
 SYNTEX:
@@ -1115,7 +1115,7 @@ var arr1 = ['aa', 'bb'];
 var arr2 = ['cc', 'dd'];
 
 Array.prototype.push.apply(arr1, arr2)
-console.log(arr1);  // ['parsnip', 'potato', 'celery', 'beetroot']
+/*console.log(*/arr1;  // ['parsnip', 'potato', 'celery', 'beetroot']
 
 
 
@@ -1130,6 +1130,146 @@ PARAMETERS:
 RETURN VALUE:
 	- The new length property of the object upon which the method was called.
 */
+
+
+
+
+
+/*
+23. reduce  ===========
+
+- The reduce() method executes a reducer function (that you provide) on each element of the array, resulting in single output value.
+
+*/
+
+[1, 2, 3, 4].reduce( (acc, curVal) => acc + curVal); //10
+[1, 2, 3, 4].reduce( (acc, curVal) => acc + curVal, 5); //15
+
+
+// ................... pair 1 start
+let maxCallback = ( acc, cur ) => Math.max( acc.x, cur.x);
+let maxCallback2 = ( max, cur ) => Math.max( max, cur );
+// reduce without initialValue
+[ { x: 2 }, { x: 22 }, { x: 42 } ].reduce( maxCallback ); // NaN -Math.max( 10, undefined )
+[ { x: 2 }, { x: 22 }            ].reduce( maxCallback ); // 22
+[ { x: 2 }                       ].reduce( maxCallback ); // { x: 2 } -1 element not return same element
+// [                                ].reduce( maxCallback ) // TypeError
+
+[ { x: 22 }, { x: 42 } ].map( el => el.x )
+                        .reduce( maxCallback2, -Infinity ); //22
+// ................... pair 1 end
+
+
+[0, 1, 2, 3, 4].reduce((acc, curVal, curInd, arr) => acc + curVal); //10
+
+
+
+// ................... pair 2 start
+// Sum of values in an object array
+let initialValue = 0
+let sum = [{x: 1}, {x: 2}, {x: 3}].reduce(function (acc, curVal) {
+    return acc + curVal.x
+}, initialValue)
+
+/*console.log(*/sum // logs 6
+// ................... pair 2 end
+
+
+/*🟡*/ "b" in {a: 1, b: 2}; //true
+
+
+
+// ................... pair 3 start
+let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice']
+
+let countedNames = names.reduce(function (allNames, name) {
+	if (name in allNames) {
+		allNames[name]++
+	}
+	else {
+		allNames[name] = 1
+	}
+	return allNames
+}, {});
+// countedNames is:
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+/*console.log(*/countedNames;
+// ................... pair 3 end
+
+
+
+// ................... pair 4 start  ???????????????????????????????
+let people = [
+  { name: 'Alice', age: 21 },
+  { name: 'Max', age: 20 },
+  { name: 'Jane', age: 20 }
+];
+
+function groupBy(objectArray, property) {
+
+	return objectArray.reduce(function (acc, obj) {
+
+		let val = obj[property]
+
+		if (!acc[val]) {
+			acc[val] = [];
+		}
+
+		acc[val].push(obj);
+
+		return acc;
+	}, {})
+
+}
+
+let groupedPeople = groupBy(people, 'age')
+// groupedPeople is:
+// { 
+//   20: [
+//     { name: 'Max', age: 20 }, 
+//     { name: 'Jane', age: 20 }
+//   ], 
+//   21: [{ name: 'Alice', age: 21 }] 
+// }
+// ................... pair 4 start  ???????????????????????????????
+
+/*
+SYNTEX:
+	- arr.reduce(callback( accumulator, currentValue, [, index[, array]] )[, initialValue])
+
+PARAMETERS: 
+	- callback
+		=> A function to execute on each element in the array (except for the first, if no initialValue is supplied).
+		   taking four arguments:
+
+			- accumulator
+				=> The accumulator accumulates callback's return values.
+				=> It is the accumulated value previously returned in the last invocation of the callback—or initialValue,
+				   if it was supplied (see below).
+
+			- currentValue
+				=> The current element being processed in the array.
+
+			- index (Optional)
+				=> The index of the current element being processed in the array.
+				=> Starts from index 0 if an initialValue is provided.
+				   Otherwise,
+				   it starts from index 1.
+
+			- array (Optional)
+				=> The array reduce() was called upon.
+
+	- initialValue (Optional)
+		=> A value to use as the first argument to the first call of the callback.
+		=> If no initialValue is supplied,
+		   the first element in the array will be used as the initial accumulator value and skipped as currentValue.
+		=> Calling reduce() on an empty array without an initialValue will throw a TypeError.
+
+RETURN VALUE:
+	- The single value that results from the reduction.
+*/
+
+
 
 
 
