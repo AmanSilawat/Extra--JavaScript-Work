@@ -1231,7 +1231,65 @@ let groupedPeople = groupBy(people, 'age')
 //   ], 
 //   21: [{ name: 'Alice', age: 21 }] 
 // }
-// ................... pair 4 start  ???????????????????????????????
+// ................... pair 4 end  ???????????????????????????????
+
+
+
+
+// ................... pair 5 start
+// Bonding arrays contained in an array of objects using the spread operator and initialValue
+var friends = [{
+  name: 'Anna',
+  books: ['Bible', 'Harry Potter'],
+  age: 21
+}, {
+  name: 'Bob',
+  books: ['War and peace', 'Romeo and Juliet'],
+  age: 26
+}, {
+  name: 'Alice',
+  books: ['The Lord of the Rings', 'The Shining'],
+  age: 18
+}]
+
+var res = friends.reduce( (accu, curVal)=>{
+	return [ ...accu, ...curVal.books ]
+}, ["The Legent"] )
+
+res; //console this line
+
+// output:
+//["The Legent", "Bible", "Harry Potter", "War and peace", "Romeo and Juliet", "The Lord of the Rings", "The Shining"]
+
+
+// ................... pair 5 end
+
+
+
+
+
+// ................... pair 6 start
+// Remove duplicate items in an array
+
+let myArray = ['a', 'b', 'a', 'b', 'c', 'e', 'e', 'c', 'd', 'd', 'd', 'd']
+let myOrderedArray = myArray.reduce(function (accu, curVal) {
+		if (accu.indexOf(curVal) === -1) {
+	accu.push(curVal)
+	}
+		return accu;
+	}, [])
+
+console.log(myOrderedArray) //["a", "b", "c", "e", "d"]
+
+// same result using this way
+console.log( Array.from( new Set(myArray) ) ) //["a", "b", "c", "e", "d"]
+
+// ................... pair 6 end
+
+
+
+
+
 
 /*
 SYNTEX:
@@ -1786,11 +1844,11 @@ for (let letter of eArr) {
 //2
 var arr = ['a', 'b', 'c', 'd', 'e'];
 var eArr = arr[Symbol.iterator]();
-console.log(eArr.next().value); // a
-console.log(eArr.next().value); // b
-console.log(eArr.next().value); // c
-console.log(eArr.next().value); // d
-console.log(eArr.next().value); // e
+eArr.next().value; // a
+eArr.next().value; // b
+eArr.next().value; // c
+eArr.next().value; // d
+eArr.next().value; // e
 
 
 Object.getPrototypeOf('a'); // String{}
