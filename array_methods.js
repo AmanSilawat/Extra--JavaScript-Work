@@ -1485,14 +1485,328 @@ RETURN VALUE:
 
 
 /*
-learn panding
-1. copyWithin
+29. sort  ===========
 
-question
-link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-heading: Affecting Initial Array (modifying, appending, and deleting)
+- Sorts the elements of an array in place and returns the sorted array.
+- The default sort order is ascending,
+  built upon converting the elements into strings,
+  then comparing their sequences of UTF-16 code units values.
+
+- The time and space complexity of the sort cannot be guaranteed as it depends on the implementation.
+
 */
 
+['March', 'Jan', 'Feb', 'Dec'].sort(); // ["Dec", "Feb", "Jan", "March"]
+[1, 30, 4, 21, 100000].sort(); // [1, 100000, 21, 30, 4]
+
+
+// Sorting non-ASCII characters
+var items = ['réservé', 'premier', 'communiqué', 'café', 'adieu', 'éclair'];
+items.sort(function (a, b) {
+	return a.localeCompare(b);
+});
+
+// items is ['adieu', 'café', 'communiqué', 'éclair', 'premier', 'réservé']
+
+
+/*
+SYNTEX:
+	- arr.sort([compareFunction])
+
+PARAMETERS:
+	
+	- compareFunction
+		=> Specifies a function that defines the sort order.
+		=> If omitted, the array elements are converted to strings,
+		   then sorted according to each character's Unicode code point value.
+
+		- firstEl
+			=> The first element for comparison.
+
+		- secondEl
+			=> The second element for comparison.
+
+RETURN VALUE:
+	- The sorted array. Note that the array is sorted in place, and no copy is made.
+*/
+
+/*
+- DESCRIPTION:
+	=> If compareFunction(a, b)
+	   returns less than 0,
+	   sort 'a' to an index lower than 'b' (i.e. 'a' comes first).
+
+	=> If compareFunction(a, b)
+	   returns 0,
+	   leave a and b unchanged with respect to each other,
+	   but sorted with respect to all different elements. Note: the ECMAscript standard does not guarantee this behavior, thus, not all browsers (e.g. Mozilla versions dating back to at least 2003) respect this.
+
+	=> If compareFunction(a, b)
+	   returns greater than 0, sort 'b' to an index lower than 'a' (i.e. 'b' comes first).
+
+	=> compareFunction(a, b)
+	   must always return the same value when given a specific pair of elements a and b as its two arguments.
+	   If inconsistent results are returned, then the sort order is undefined.
+*/
+
+
+
+
+
+/*
+30. splice  ===========
+
+- This method changes the contents of an array by
+  removing or replacing existing elements
+  and/or adding new elements in place.
+
+- The time and space complexity of the sort cannot be guaranteed as it depends on the implementation.
+
+*/
+
+// splice(start, delete, item1, item2)
+// DELETED VALUE ASSIGN IN VARIABLE AND MODIFIED original ARRAY
+
+['Jan', 'March', 'April', 'June'].splice(1, 0, 'Feb');/*
+["Jan", "Feb", "March", "April", "June"] */
+
+['Jan', 'March', 'April', 'June'].splice(4, 1, 'May');/*
+["Jan", "Feb", "March", "April", "May"] */
+
+['Jan', 'March', 'April', 'June'].splice(4, 1);/*
+["Jan", "Feb", "March", "April", "May"] */
+
+['aa', 'bb', 'cc', 'dd'].splice(-2, 1);/*	// assign in var=["cc"]
+["aa", "bb", "dd"] */	// - modifying original arr
+
+['aa', 'bb', 'cc', 'dd'].splice(2);/*	// assign in var=["cc", "dd"]
+["aa", "bb"] */			// - modifying original arr
+
+
+/*
+SYNTEX:
+	- let arrDeletedItems = array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
+
+PARAMETERS:
+	
+	- start
+		=> start to 0 index and 0 'deleteCount' value add 'item' without deleting.
+		=> if negative, start to end.
+
+	- deleteCount (Optional)
+		=> Number of elements in the array to remove from start.
+		=> val is equal or grater than array.length - start
+
+RETURN VALUE:
+	- An array containing the deleted elements.
+	- If only one element is removed, an array of one element is returned.
+	- If no elements are removed, an empty array is returned.
+
+*/
+
+
+
+
+/*
+31. toLocaleString  ===========
+
+- returns a string representing the elements of the array.
+- The elements are converted to Strings using their toLocaleString methods and these Strings are separated by a locale-specific String (such as a comma “,”).
+
+*/
+
+var arr1 = [1, 'a', new Date('21 Dec 1997 14:12:00 UTC')];
+arr1.toLocaleString(); //"1,a,21/12/1997, 19:42:00"
+arr1.toLocaleString('en', {timeZone: 'UTC'}); // "1,a,12/21/1997, 2:12:00 PM"
+
+
+var prices = ['￥7', 500, 8123, 12]; 
+prices.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' });
+// "￥7,￥500,￥8,123,￥12"
+
+var prices = [500, 8123, 12]; 
+prices.toLocaleString('ja-JP', { style: 'currency', currency: 'INR' });
+// "₹500.00,₹8,123.00,₹12.00"
+
+
+
+/*
+SYNTEX:
+	- arr.toLocaleString([locales[, options]]);
+
+PARAMETERS:
+	
+	- locales (Optional)
+		=> A string with a BCP 47 language tag,
+		   or an array of such strings. For the general form and interpretation of the locales argument, see the Intl page.
+
+	- options (Optional)
+		=> An object with configuration properties,
+		   for numbers see Number.prototype.toLocaleString(),
+		   and for dates see Date.prototype.toLocaleString().
+
+RETURN VALUE:
+	- A string representing the elements of the array.
+*/
+
+
+
+
+
+//32. toSource (Deprecated 👎)  ===========
+
+
+/*
+33. toString  ===========
+
+- The toString() method returns a string representing the specified array and its elements.
+
+*/
+
+[1, 2, 'a', '1a'].toString(); //"1,2,'a','1a'"
+
+/*
+SYNTEX:
+	- arr.toString()
+
+RETURN VALUE:
+	- A string representing the elements of the array.
+*/
+
+
+
+
+/*
+34. unshift  ===========
+
+- The unshift() method adds one or more elements to the beginning of an array and returns the new length of the array.
+
+*/
+
+var arr1 = [1, 2, 3];
+var x = arr1.unshift(4, 5);
+x; // 5 (lenght of array)
+arr1 // [4, 5, 1, 2, 3]
+
+/*
+SYNTEX:
+	- arr.unshift(element1[, ...[, elementN]])
+
+PARAMETERS:
+	- elementN
+		=> The elements to add to the front of the arr.
+
+RETURN VALUE:
+	- The new length property of the object upon which the method was called.
+*/
+
+
+
+
+
+/*
+35. values  ===========
+
+- returns a new Array Iterator object
+  that contains the values for each index in the array.
+
+*/
+// 1
+var arr1 = ['a', 'b', 'c'];
+var iterator = arr1.values();
+iterator; // Array Iterator
+
+for (const value of iterator) {
+	value; //console this line
+}
+// output: 
+// "a"
+// "b"
+// "c"
+
+for (const value of iterator) {
+	value; //console this line
+}
+// output: 
+//undefined
+
+
+// 2
+//Array.prototype.values is default implementation of Array.prototype[Symbol.iterator].
+Array.prototype.values === Array.prototype[Symbol.iterator]      //true
+
+
+// 3
+var arr = ['a', 'b', 'c', 'd', 'e'];
+var iterator = arr.values();
+
+iterator.next(); // { value: "a", done: false }
+iterator.next().value; // 'b'
+iterator.next(); // 'c'
+iterator.next(); // { value: "d", done: false }
+iterator.next(); // { value: "e", done: false }
+iterator.next().value; // undefined
+
+
+// 4
+
+
+/*
+SYNTEX:
+	- arr.values()
+
+RETURN VALUE:
+	- A new Array iterator object.
+*/
+
+
+
+
+
+
+/*
+36. Array.prototype.[@@iterator]()  ===========
+
+- The @@iterator method is part of The iterable protocol,
+  that defines how to synchronously iterate over a sequence of values.
+- The initial value of the @@iterator property is the same function object as the initial value of the values() property.
+
+*/
+
+var arr = ['a', 'b', 'c'];
+var eArr = arr[Symbol.iterator]();
+eArr; // Array Iterator
+
+var letterResult = document.getElementById('list'); // h1#heading
+for (let letter of eArr) {
+	letterResult.innerHTML += '<li>' + letter + "</li>";
+}
+
+
+//2
+var arr = ['a', 'b', 'c', 'd', 'e'];
+var eArr = arr[Symbol.iterator]();
+console.log(eArr.next().value); // a
+console.log(eArr.next().value); // b
+console.log(eArr.next().value); // c
+console.log(eArr.next().value); // d
+console.log(eArr.next().value); // e
+
+
+Object.getPrototypeOf('a'); // String{}
+Object.getPrototypeOf(102); // Number{}
+Object.getPrototypeOf(NaN); // Number{}
+Object.getPrototypeOf(true); // Boolean{}
+
+/*
+SYNTEX:
+	- arr[Symbol.iterator]()
+
+RETURN VALUE:
+	- The initial value given by the values() 'iterator'.
+	  By default,
+	  using arr[Symbol.iterator] will return the values() function.
+*/
 
 
 
@@ -1503,6 +1817,7 @@ learn panding
 1. copyWithin
 2. reduce
 3. reduceRight
+4. toLocaleString
 
 question
 link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
