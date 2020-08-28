@@ -15,12 +15,12 @@ Array.from('123', x => Number(x)+Number(x)); // [2, 4, 6]
 
 
 // Array from a Set - - - - -
-Array.from( new Set(['foo', 'bar', 'baz', 'foo']) );
+Array.from( new Set(['foo', 'bar', 'baz', 'foo']) ); //(working like iterator)
 // ["foo", "bar", "baz"]
 
 
 // Array from a Map  - - - - -
-Array.from( new Map([[1, 2], [2, 4], [4, 8]]) );
+Array.from( new Map([[1, 2], [2, 4], [4, 8]]) ); //(working like iterator)
 // [[1, 2], [2, 4], [4, 8]]
 
 
@@ -41,7 +41,7 @@ Array.from({length: 5}, (v, i) => v);
 
 // Sequence generator function (commonly referred to as "range", e.g. Clojure, PHP etc)
 // const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
-const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => i);
+const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
 
 // Generate numbers range 0..4
 range(0, 4, 1);
@@ -238,7 +238,7 @@ RETURN VALUE:
 
 /*
 SYNTEX:
-	- old_array.concat([value1[, value2[, ...[, valueN]]]])
+	- arr.copyWithin(target[, start[, end]])
 
 PARAMETERS: 
 	- target
