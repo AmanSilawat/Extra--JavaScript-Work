@@ -227,6 +227,174 @@ RETURN VALUE
 
 
 
+/*
+4. Object.defineProperty() -----
+
+- The static method Object.defineProperty() defines a new property directly on an object, or modifies an existing property on an object, and returns the object.
+
+*/
+
+'use strict';
+var object1 = {};
+
+Object.defineProperty(object1, 'property1', {
+  value: 42,
+  writable: false
+});
+
+Object.defineProperty(object1, 'property2', {
+  value: 42,
+  writable: true,
+  enumerable: true
+});
+
+object1.property1 = 77; // 42
+object1.property2 = 77; // 77
+// throws an error in strict mode
+
+object1.property1;
+// expected output: 42
+
+for (let x in object1) {
+	x;
+}
+// output: 
+// property2
+
+
+/*
+
+SYNTAX
+	- Object.defineProperty(obj, prop, descriptor)
+
+PARAMETERS
+	- obj
+		=> The object on which to define the property.
+
+	- prop
+		=> The name or Symbol of the property to be defined or modified.
+
+	- descriptor
+		=> The descriptor for the property being defined or modified.
+
+
+RETURN VALUE
+	- The object that was passed to the function.
+*/
+
+
+
+
+
+
+/*
+5. Object.entries() -----
+
+- this method returns an array of a given object's own enumerable string-keyed property [key, value] pairs,
+- in the same order as that provided by a for...in loop.
+ (The only important difference is that a for...in loop enumerates properties in the prototype chain as well).
+
+- The order of the array returned by Object.entries() does not depend on how an object is defined.
+- If there is a need for certain ordering, then the array should be sorted first, like
+
+*/
+
+var object1 = {
+	a: 'somestring',
+	b: 42
+};
+
+for ( const [key, val] of Object.entries(object1)) {
+	(`${key}: ${val}`); //console this line
+}
+
+// expected output:
+// "a: somestring"
+// "b: 42"
+// order is not guaranteed
+
+//..
+
+const obj = { foo: 'bar', baz: 42 };
+Object.entries(obj); // [ ['foo', 'bar'], ['baz', 42] ]
+
+// array like object
+const obj = { 0: 'a', 1: 'b', 2: 'c' };
+Object.entries(obj); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
+
+// array like object with random key ordering
+const anObj = { 100: 'a', 2: 'b', 7: 'c' };
+Object.entries(anObj); // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
+
+
+/*
+
+SYNTAX
+	- Object.entries(obj)
+
+PARAMETERS
+	- obj
+		=> The object whose own enumerable string-keyed property [key, value] pairs are to be returned.
+
+RETURN VALUE
+	- An array of the given object's own enumerable string-keyed property [key, value] pairs.
+*/
+
+
+
+
+
+
+/*
+5. Object.freeze() -----
+
+- The Object.freeze() method freezes an object.
+A frozen object can no longer be changed; freezing an object prevents new properties from being added to it, existing properties from being removed, prevents changing the enumerability, configurability, or writability of existing properties, and prevents the values of existing properties from being changed. In addition, freezing an object also prevents its prototype from being changed. freeze() returns the same object that was passed in.
+
+
+
+*/
+
+var object1 = {
+	a: 'somestring',
+	b: 42
+};
+
+for ( const [key, val] of Object.entries(object1)) {
+	(`${key}: ${val}`); //console this line
+}
+
+// expected output:
+// "a: somestring"
+// "b: 42"
+// order is not guaranteed
+
+//..
+
+const obj = { foo: 'bar', baz: 42 };
+Object.entries(obj); // [ ['foo', 'bar'], ['baz', 42] ]
+
+// array like object
+const obj = { 0: 'a', 1: 'b', 2: 'c' };
+Object.entries(obj); // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
+
+// array like object with random key ordering
+const anObj = { 100: 'a', 2: 'b', 7: 'c' };
+Object.entries(anObj); // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
+
+
+/*
+
+SYNTAX
+	- Object.entries(obj)
+
+PARAMETERS
+	- obj
+		=> The object whose own enumerable string-keyed property [key, value] pairs are to be returned.
+
+RETURN VALUE
+	- An array of the given object's own enumerable string-keyed property [key, value] pairs.
+*/
 
 
 
