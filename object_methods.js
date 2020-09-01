@@ -1,3 +1,5 @@
+//learned on MDN
+
 /*
 1. Object.assign() -----
 
@@ -108,7 +110,7 @@ ocn.constructor  // shows "undefined"
 
 // entries method
 var obj = Object.create({ a: 1, b: 2 });
-Object.entries(obj); // "[]"
+Object.entries(obj); // "[]" --- all objcect properties assign in proto not in obj
 Object.entries({ a: 1, b: 2 }); // [["a", 1], ["b", 2]]
 
 
@@ -399,7 +401,7 @@ obj; //{ foo: "bar", baz: 42 }
 
 var map = new Map([ ['foo', 'bar'], ['baz', 42] ]);
 var obj = Object.fromEntries(map);
-console.log(obj); // { foo: "bar", baz: 42 }
+obj; // { foo: "bar", baz: 42 }
 
 /*
 
@@ -472,8 +474,8 @@ var object1 = { property1: 42 };
 
 var descriptors1 = Object.getOwnPropertyDescriptors(object1);
 
-console.log(descriptors1.property1.writable); // true
-console.log(descriptors1.property1.value); // 42
+descriptors1.property1.writable; // true
+descriptors1.property1.value; // 42
 
 
 /*
@@ -874,7 +876,7 @@ try {
     value: 42
   });
 } catch (e) {
-  console.log(e);
+  e; //console this line
   // expected output: TypeError: Cannot define property property1, object is not extensible
 }
 
@@ -967,10 +969,6 @@ Bar.prototype = Object.create(Foo.prototype);
 Baz.prototype = Object.create(Bar.prototype);
 
 var baz = new Baz();
-console.log(Foo)
-console.log(Bar)
-console.log(Baz)
-console.log(baz)
 
 Baz.prototype.isPrototypeOf(baz); // true
 Bar.prototype.isPrototypeOf(baz); // true
@@ -999,14 +997,14 @@ Errors thrown
 
 
 /*
-20. Object.prototype.propertyIsEnumerable() -----
+21. Object.prototype.propertyIsEnumerable() -----
 
 - The propertyIsEnumerable() method returns a Boolean indicating whether the specified property is enumerable and is the object's own property.
 
 */
 
-const object1 = {};
-const array1 = [];
+var object1 = {};
+var array1 = [];
 object1.property1 = 42;
 array1[0] = 42;
 
@@ -1031,6 +1029,240 @@ Errors thrown
 */
 
 
+
+
+
+/*
+22. Object.prototype.toLocaleString() -----
+
+- The toLocaleString() method returns a string representing the object. This method is meant to be overridden by derived objects for locale-specific purposes.
+
+*/
+
+var date1 = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+date1.toLocaleString('ar-EG'); // "٢٠‏/١٢‏/٢٠١٢ ٨:٣٠:٠٠ ص"
+
+//..
+
+var number1 = 123456.789;
+number1.toLocaleString('de-DE'); // "123.456,789"
+
+//..
+
+[4, 7, 10].toLocaleString('fr', { style: 'currency', currency: 'EUR'});
+// "4,00 €,7,00 €,10,00 €"
+
+/*
+
+SYNTAX
+	- obj.toLocaleString()
+
+RETURN VALUE
+	- A string representing the object.
+*/
+
+
+
+
+
+
+/*
+23. Object.prototype.toString() -----
+
+- this method returns a string representing the object.
+
+*/
+
+var o = new Object();
+o.toString(); // [object Object]
+
+//..
+
+var toString = Object.prototype.toString;
+
+toString.call(new Date);    // [object Date]
+toString.call(new String);  // [object String]
+toString.call(Math);        // [object Math]
+
+// Since JavaScript 1.8.5
+toString.call(undefined);   // [object Undefined]
+toString.call(null);        // [object Null]
+
+//..
+
+var x = 10;
+x.toString(2); // "1010"
+x.toString(8); // "12"
+x.toString(10); // "10"
+x.toString(16); // "a"
+
+/*
+
+SYNTAX
+	- obj.toString()
+
+RETURN VALUE
+	- A string representing the object.
+*/
+
+
+
+
+
+/*
+23. Object.prototype.valueOf() -----
+
+- This method returns the primitive value of the specified object.
+
+*/
+
+function MyNumberType(n) {
+  this.number = n;
+}
+
+MyNumberType.prototype.valueOf = function() {
+  return this.number;
+};
+
+var object1 = new MyNumberType(4);
+
+object1 + 3; // 7
+
+// ..
+
++"5" // 5 (string to number)
++"" // 0 (string to number)
++"1 + 2" // NaN (doesn't evaluate)
++new Date() // same as (new Date()).getTime()
++"foo" // NaN (string to number)
++{} // NaN
++[] // 0 (toString() returns an empty string list)
++[1] // 1
++[1,2] // NaN
++new Set([1]) // NaN
++BigInt(1) // Uncaught TypeError: Cannot convert a BigInt value to a number
++undefined // NaN
++null // 0
++true // 1
++false // 0
+
+/*
+
+SYNTAX
+	- object.valueOf()
+
+RETURN VALUE
+	- The primitive value of the specified object.
+*/
+
+
+
+
+
+
+/*
+24. Object.setPrototypeOf() -----
+
+- This method sets the prototype (i.e., the internal [[Prototype]] property) of a specified object to another object or null.
+
+*/
+
+//????
+
+/*
+
+SYNTAX
+	- Object.setPrototypeOf(obj, prototype)
+
+PARAMETERS
+	- obj
+		=> The object which is to have its prototype set.
+
+	- prototype
+		=> the object's new prototype (an object or null).
+
+RETURN VALUE
+	- The specified object.
+*/
+
+
+
+
+
+
+
+/*
+25. Object.values() -----
+
+- The Object.values() method returns an array of a given object's own enumerable property values, in the same order as that provided by a for...in loop. (The only difference is that a for...in loop enumerates properties in the prototype chain as well.)
+
+*/
+
+var object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+Object.values(object1); // ["somestring", 42, false]
+
+//..
+
+var arrayLikeObj2 = { 100: 'a', 2: 'b', 7: 'c' };
+Object.values(arrayLikeObj2 ); // ['b', 'c', 'a']
+
+//..
+
+Object.values('foo'); // ['f', 'o', 'o']
+
+/*
+
+SYNTAX
+	- Object.values(obj)
+
+PARAMETERS
+	- obj
+		=> The object whose enumerable own property values are to be returned.
+
+RETURN VALUE
+	- An array containing the given object's own enumerable property values.
+*/
+
+
+
+
+
+//Object.prototype.constructor -----
+
+var o = {}
+o.constructor === Object; // true
+
+var o = new Object
+o.constructor === Object; // true
+
+var a = []
+a.constructor === Array; // true
+
+var a = new Array
+a.constructor === Array; // true
+
+var n = new Number(3)
+n.constructor === Number; // true
+
+//..
+
+function Tree(name) {
+  this.name = name
+}
+
+var theTree = new Tree('Redwood');
+theTree.constructor === Tree; // true
+
+
+
+
+
 //object.create : newly-created object
 //Object.create()
 //Object.isSealed()
+//Object.setPrototypeOf()
