@@ -50,3 +50,27 @@ typeof b; // => ???
     /*     a++;                                */
     /*     ...                                 */
     /*     ...                                 */
+
+
+
+//Q. What will the following code output?
+// Problem
+(function() {
+    var a = b = 5;
+})();
+
+console.log(b);
+
+// Ans: Output is 5, because b declaration hoisted to top of the code block
+
+
+
+// Q. What will be the output of the following code?
+var m = 1;
+if (function f() {}) {
+    m += typeof f;
+}
+
+console.log(m);
+
+// Ans. Output is "1undefined" If condition statement evaluate using eval return true because if statement code execute at run time.
