@@ -74,3 +74,25 @@ if (function f() {}) {
 console.log(m);
 
 // Ans. Output is "1undefined" If condition statement evaluate using eval return true because if statement code execute at run time.
+
+
+
+// Q. What would following code return?
+
+console.log(typeof typeof 1);
+
+// Ans. Output : "String"
+// typeof 1 will return "number"
+// and typeof "number" will return string.
+
+
+
+// Q. what's output ?
+
+var a = [1, 2, 3];
+a[10] = 99;
+console.log(a[6]);
+console.log(a[6]); // [1, 2, 3, empty × 7, 99]
+a.map(ele => 77) // (11) [77, 77, 77, empty × 7, 77]
+
+// output : undefinded
