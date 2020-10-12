@@ -96,3 +96,39 @@ console.log(a[6]); // [1, 2, 3, empty × 7, 99]
 a.map(ele => 77) // (11) [77, 77, 77, empty × 7, 77]
 
 // output : undefinded
+
+
+
+
+
+//Q. what's output ?
+
+console.log("0 || 1 = "+(0 || 1));
+console.log("1 || 2 = "+(1 || 2));
+console.log("0 && 1 = "+(0 && 1));
+console.log("1 && 2 = "+(1 && 2));
+
+
+// Output :
+0 || 1 // 1
+1 || 2 // 1
+0 && 1 // 0
+1 && 2 // 2
+
+//         0 || 1           = 1
+//     false || true        = true
+// function abc(x = 10){}   = 10
+// abc();
+
+
+//         1 || 2           = 1
+//      true || true        = true
+// function abc(x = 10){}   = 20
+// abc(20);
+
+
+//         0 && 1           = 0
+//     false && true        = false
+
+//         1 && 2           = 2
+//     true && true        = true
